@@ -1,0 +1,13 @@
+﻿<Window x:Class="РегистрантКПП.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:РегистрантКПП"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="466.5" Width="861.5">
+    <Grid>
+        <Button Content="Этот комп стоит на кпп" x:Name="btn_kpp" Click="btn_kpp_Click" HorizontalAlignment="Left" Margin="156,203,0,0" VerticalAlignment="Top" Width="127" Height="46"/>
+        <Button Content="Этот комп стоит на складе" HorizontalAlignment="Left" Margin="571,203,0,0" VerticalAlignment="Top" Width="127" Height="46"/>
+    </Grid>
+</Window>
