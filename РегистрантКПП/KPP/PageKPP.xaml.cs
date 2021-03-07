@@ -23,6 +23,9 @@ namespace РегистрантКПП.KPP
         public PageKPP()
         {
             InitializeComponent();
+
+            DB.RegistrantEntities entities = new DB.RegistrantEntities();
+            lb_chat.ItemsSource = entities.Chat.ToList();
         }
     }
 }
