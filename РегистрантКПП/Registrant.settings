@@ -5,10 +5,13 @@
     <Setting Name="ThisPC" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ConnectionDB" Type="System.String" Scope="User">
+    <Setting Name="NamePC" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="eula" Type="System.Boolean" Scope="User">
+    <Setting Name="ConnectionDB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Eula" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

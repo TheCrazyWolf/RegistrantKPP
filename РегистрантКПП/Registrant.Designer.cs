@@ -38,6 +38,18 @@ namespace РегистрантКПП {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NamePC {
+            get {
+                return ((string)(this["NamePC"]));
+            }
+            set {
+                this["NamePC"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public string ConnectionDB {
             get {
                 return ((string)(this["ConnectionDB"]));
@@ -50,12 +62,12 @@ namespace РегистрантКПП {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool eula {
+        public bool Eula {
             get {
-                return ((bool)(this["eula"]));
+                return ((bool)(this["Eula"]));
             }
             set {
-                this["eula"] = value;
+                this["Eula"] = value;
             }
         }
     }
