@@ -19,5 +19,6 @@ namespace РегистрантКПП.DB
         public string SecondName { get; set; }
         public string Patronomic { get; set; }
         public System.DateTime DateTime { get; set; }
+        public string Info { get; set; }
     }
 }

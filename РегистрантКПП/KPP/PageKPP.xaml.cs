@@ -34,6 +34,8 @@ namespace РегистрантКПП.KPP
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
+            Thread thread = new Thread(new ThreadStart(Scroll));
+            thread.Start();
             chat.Refresh();
             Scroll();
             lb_chat.ItemsSource = chat.Chats;

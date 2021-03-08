@@ -65,6 +65,8 @@
     </ApplicationDefinition>
     <Compile Include="Controllers\Chat.cs" />
     <Compile Include="Controllers\ChatV.cs" />
+    <Compile Include="Controllers\Driver.cs" />
+    <Compile Include="Controllers\DriverV.cs" />
     <Compile Include="KPP\PageKPP.xaml.cs">
       <DependentUpon>PageKPP.xaml</DependentUpon>
     </Compile>
