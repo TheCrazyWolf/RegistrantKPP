@@ -20,5 +20,6 @@ namespace РегистрантКПП.DB
         public string Patronomic { get; set; }
         public System.DateTime DateTime { get; set; }
         public string Info { get; set; }
+        public string Phone { get; set; }
     }
 }

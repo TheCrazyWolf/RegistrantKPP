@@ -23,6 +23,7 @@
           <Property Name="SecondName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Patronomic" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Info" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityContainer Name="Хранилище RegistrantModelContainer">
@@ -52,6 +53,7 @@
           <Property Name="Patronomic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Info" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="RegistrantEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Chat" EntityType="Self.Chat" />
@@ -76,6 +78,7 @@
           <EntitySetMapping Name="Registrants">
             <EntityTypeMapping TypeName="RegistrantModel.Registrants">
               <MappingFragment StoreEntitySet="Registrants">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

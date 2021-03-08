@@ -22,7 +22,7 @@ namespace РегистрантКПП.KPP
     /// </summary>
     public partial class PageKPP : Page
     {
-        protected DB.Registrants newRegistrant;
+        protected DB.Registrants registrants;
         
         Controllers.Chat chat = new Controllers.Chat();
         public PageKPP()
@@ -43,7 +43,7 @@ namespace РегистрантКПП.KPP
             lb_chat.ItemsSource = chat.Chats;
         }
 
-        public void Scroll()
+        void Scroll()
         {
             Thread.Sleep(2000);
             Dispatcher.Invoke(() => lb_chat.Focus());
@@ -53,8 +53,25 @@ namespace РегистрантКПП.KPP
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            newRegistrant = new DB.Registrants();
+            DB.RegistrantEntities ef = new DB.RegistrantEntities();
+            registrants = new DB.Registrants();
 
+            registrants.FirstName = tb_FirstName.Text;
+            registrants.SecondName = tb_secondname.Text;
+            registrants.Patronomic = tb_Patronomic.Text;
+            registrants.Phone = tb_Phone.Text;
+            registrants.DateTime = DateTime.Now;
+            registrants.Info = "";
+
+            try
+            {
+                ef.Registrants.Add(registrants);
+                ef.SaveChanges();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Произошла ошибка при регистрации. Пожалуйста обратитесь к персоналу");
+            }
         }
     }
 }
