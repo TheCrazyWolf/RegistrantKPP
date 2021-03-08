@@ -34,15 +34,6 @@ namespace РегистрантКПП.KPP
             thread.Start();
         }
 
-        public void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Thread thread = new Thread(new ThreadStart(Scroll));
-            thread.Start();
-            chat.Refresh();
-            Scroll();
-            lb_chat.ItemsSource = chat.Chats;
-        }
-
         void Scroll()
         {
             Dispatcher.Invoke(() => lb_chat.SelectedIndex = lb_chat.Items.Count - 1);
@@ -51,26 +42,35 @@ namespace РегистрантКПП.KPP
 
         void Refresher()
         {
-            chat.Refresh();
-            var chatix = chat.Chats;
-            Dispatcher.Invoke(() => lb_chat.ItemsSource = chatix);
-            Scroll();
-
-            Thread.Sleep(5000);
-
-            chat.Refresh();
-            chatix = chat.Chats;
-            if (Dispatcher.Invoke(() => lb_chat.ItemsSource != chatix))
+            try
             {
                 chat.Refresh();
+                var chatix = chat.Chats;
                 Dispatcher.Invoke(() => lb_chat.ItemsSource = chatix);
                 Scroll();
-                Refresher();
+
+                Thread.Sleep(5000);
+
+                chat.Refresh();
+                chatix = chat.Chats;
+                if (Dispatcher.Invoke(() => lb_chat.ItemsSource != chatix))
+                {
+                    chat.Refresh();
+                    Dispatcher.Invoke(() => lb_chat.ItemsSource = chatix);
+                    Scroll();
+                    Refresher();
+                }
+                else
+                {
+                    Refresher();
+                }
             }
-            else
+            catch (Exception)
             {
-                Refresher();
+
+                throw;
             }
+            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -83,17 +83,18 @@ namespace РегистрантКПП.KPP
             registrants.Patronomic = tb_Patronomic.Text;
             registrants.Phone = tb_Phone.Text;
             registrants.DateTime = DateTime.Now;
-            registrants.Info = "";
+            registrants.Info = tb_info.Text;
 
             try
             {
                 ef.Registrants.Add(registrants);
                 ef.SaveChanges();
-                tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Patronomic.Text = ""; tb_Phone.Text = "";
+                MessageBox.Show("Вы успешно зарегистрировались", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+                tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Patronomic.Text = ""; tb_Phone.Text = ""; tb_info.Text = "";
             }
             catch (Exception)
             {
-                MessageBox.Show("Произошла ошибка при регистрации. Пожалуйста обратитесь к персоналу");
+                MessageBox.Show("Произошла ошибка при регистрации. Пожалуйста обратитесь к персоналу", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
