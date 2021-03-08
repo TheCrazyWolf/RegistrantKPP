@@ -24,14 +24,13 @@ namespace РегистрантКПП.KPP
     {
         protected DB.Registrants registrants;
         protected DB.Chat chats;
-        
         Controllers.Chat chat = new Controllers.Chat();
+
+
         public PageKPP()
         {
             InitializeComponent();
-            lb_chat.ItemsSource = chat.Chats;
-
-            Thread thread = new Thread(new ThreadStart(Scroll));
+            Thread thread = new Thread(new ThreadStart(Refresher));
             thread.Start();
         }
 
@@ -46,10 +45,32 @@ namespace РегистрантКПП.KPP
 
         void Scroll()
         {
-            Thread.Sleep(2000);
-            Dispatcher.Invoke(() => lb_chat.Focus());
             Dispatcher.Invoke(() => lb_chat.SelectedIndex = lb_chat.Items.Count - 1);
             Dispatcher.Invoke(() => lb_chat.ScrollIntoView(lb_chat.SelectedItem));
+        }
+
+        void Refresher()
+        {
+            chat.Refresh();
+            var chatix = chat.Chats;
+            Dispatcher.Invoke(() => lb_chat.ItemsSource = chatix);
+            Scroll();
+
+            Thread.Sleep(5000);
+
+            chat.Refresh();
+            chatix = chat.Chats;
+            if (Dispatcher.Invoke(() => lb_chat.ItemsSource != chatix))
+            {
+                chat.Refresh();
+                Dispatcher.Invoke(() => lb_chat.ItemsSource = chatix);
+                Scroll();
+                Refresher();
+            }
+            else
+            {
+                Refresher();
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
