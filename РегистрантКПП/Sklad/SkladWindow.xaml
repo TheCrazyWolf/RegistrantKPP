@@ -13,8 +13,8 @@
             <ColumnDefinition Width="399*"/>
             <ColumnDefinition Width="401*"/>
         </Grid.ColumnDefinitions>
-        <ListBox HorizontalAlignment="Left" Height="283" Margin="77,93,0,0" VerticalAlignment="Top" Width="355"/>
-        <ListBox HorizontalAlignment="Left" Height="252" Margin="91,93,0,0" VerticalAlignment="Top" Width="355" Grid.Column="1"/>
+        <ListBox HorizontalAlignment="Left" Height="283" Margin="54,51,0,0" VerticalAlignment="Top" Width="289"/>
+        <ListBox x:Name="lb_chat" HorizontalAlignment="Left" Height="252" Margin="91,93,0,0" VerticalAlignment="Top" Width="355" Grid.Column="1"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="91,353,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="355"/>
 
 

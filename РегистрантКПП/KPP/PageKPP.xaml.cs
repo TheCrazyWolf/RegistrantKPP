@@ -23,6 +23,7 @@ namespace РегистрантКПП.KPP
     public partial class PageKPP : Page
     {
         protected DB.Registrants registrants;
+        protected DB.Chat chats;
         
         Controllers.Chat chat = new Controllers.Chat();
         public PageKPP()
@@ -67,10 +68,35 @@ namespace РегистрантКПП.KPP
             {
                 ef.Registrants.Add(registrants);
                 ef.SaveChanges();
+                tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Patronomic.Text = ""; tb_Phone.Text = "";
             }
             catch (Exception)
             {
                 MessageBox.Show("Произошла ошибка при регистрации. Пожалуйста обратитесь к персоналу");
+            }
+        }
+
+        private void tb_enterchat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                DB.RegistrantEntities ef = new DB.RegistrantEntities();
+
+                chats = new DB.Chat();
+                chats.NamePC = "КПП";
+                chats.TextMSG = tb_enterchat.Text;
+                chats.Time = DateTime.Now;
+
+                try
+                {
+                    ef.Chat.Add(chats);
+                    ef.SaveChanges();
+                    tb_enterchat.Text = "";
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
     }
