@@ -32,6 +32,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Click="Button_Click" Content="Button" HorizontalAlignment="Left" Margin="642,410,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Page>

@@ -20,12 +20,25 @@ namespace РегистрантКПП.KPP
     /// </summary>
     public partial class PageKPP : Page
     {
+        Controllers.Chat chat = new Controllers.Chat();
         public PageKPP()
         {
             InitializeComponent();
+            lb_chat.ItemsSource = chat.Chats;
+            //Scroll();
+        }
 
-            DB.RegistrantEntities entities = new DB.RegistrantEntities();
-            lb_chat.ItemsSource = entities.Chat.ToList();
+        public void Button_Click(object sender, RoutedEventArgs e)
+        {
+            chat.Refresh();
+            Scroll();
+            lb_chat.ItemsSource = chat.Chats;
+        }
+
+        public void Scroll()
+        {
+            lb_chat.SelectedIndex = lb_chat.Items.Count - 1;
+            lb_chat.ScrollIntoView(lb_chat.SelectedItem);
         }
     }
 }

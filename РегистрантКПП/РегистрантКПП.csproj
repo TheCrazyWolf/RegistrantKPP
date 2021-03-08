@@ -63,6 +63,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\Chat.cs" />
+    <Compile Include="Controllers\ChatV.cs" />
     <Compile Include="KPP\PageKPP.xaml.cs">
       <DependentUpon>PageKPP.xaml</DependentUpon>
     </Compile>
@@ -165,7 +167,6 @@
       <DependentUpon>Registrant.edmx</DependentUpon>
       <LastGenOutput>Registrant.cs</LastGenOutput>
     </Content>
-    <Resource Include="Image1.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
