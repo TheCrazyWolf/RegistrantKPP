@@ -22,6 +22,8 @@ namespace РегистрантКПП.KPP
     /// </summary>
     public partial class PageKPP : Page
     {
+        protected DB.Registrants newRegistrant;
+        
         Controllers.Chat chat = new Controllers.Chat();
         public PageKPP()
         {
@@ -47,6 +49,12 @@ namespace РегистрантКПП.KPP
             Dispatcher.Invoke(() => lb_chat.Focus());
             Dispatcher.Invoke(() => lb_chat.SelectedIndex = lb_chat.Items.Count - 1);
             Dispatcher.Invoke(() => lb_chat.ScrollIntoView(lb_chat.SelectedItem));
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            newRegistrant = new DB.Registrants();
+
         }
     }
 }

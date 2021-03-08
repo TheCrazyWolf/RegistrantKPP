@@ -13,9 +13,9 @@
         <TextBox HorizontalAlignment="Left" FontSize="25" Height="40" Margin="68,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278"/>
         <TextBox HorizontalAlignment="Left" FontSize="25" Height="40" Margin="68,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278"/>
         <TextBox HorizontalAlignment="Left" FontSize="25" Height="40" Margin="68,284,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="68,350,0,0" VerticalAlignment="Top" Width="278" Height="39"/>
+        <Button Click="Button_Click_1" Content="Button" HorizontalAlignment="Left" Margin="68,350,0,0" VerticalAlignment="Top" Width="278" Height="39"/>
         <TextBox HorizontalAlignment="Left" FontSize="25" Height="40" Margin="439,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278"/>
-        <ListBox x:Name="lb_chat" HorizontalAlignment="Left" Height="211" Margin="439,125,0,0" VerticalAlignment="Top" Width="278">
+        <ListBox  x:Name="lb_chat" HorizontalAlignment="Left" Height="211" Margin="439,125,0,0" VerticalAlignment="Top" Width="278">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
