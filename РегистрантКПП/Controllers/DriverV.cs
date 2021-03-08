@@ -11,20 +11,37 @@ namespace РегистрантКПП.Controllers
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
-        public string Patronomic { get; set; }
         public string DateTime { get; set; }
+        public string Phone { get; set; }
         public string Info { get; set; }
+        
+        public bool DriverLeft { get; set; }
+
+        public int SordID { get; set; }
+
+        public string btn_Arrive { get; set; }
+        public string btn_Left { get; set; }
 
         public DriverV(DB.Registrants registrants)
         {
             Id = registrants.Id;
             FirstName = registrants.FirstName;
             SecondName = registrants.SecondName;
-            Patronomic = registrants.Patronomic;
             DateTime = registrants.DateTime.ToString();
+            Phone = registrants.Phone;
             Info = registrants.Info;
+
+            if (registrants.TimeLeft == null)
+            {
+                if (registrants.TimeArrive == null)
+                {
+                    btn_Arrive = "Collapsed";
+                    btn_Arrive = "Visible";
+                }
+                btn_Arrive = "Visible";
+                btn_Arrive = "Collapsed";
+            }
+
         }
-
-
     }
 }

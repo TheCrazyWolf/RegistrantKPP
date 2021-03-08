@@ -67,8 +67,8 @@
     <Compile Include="Controllers\ChatV.cs" />
     <Compile Include="Controllers\Driver.cs" />
     <Compile Include="Controllers\DriverV.cs" />
-    <Compile Include="KPP\PageKPP.xaml.cs">
-      <DependentUpon>PageKPP.xaml</DependentUpon>
+    <Compile Include="KPP\WindowKPP.xaml.cs">
+      <DependentUpon>WindowKPP.xaml</DependentUpon>
     </Compile>
     <Compile Include="Registrant.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -78,7 +78,7 @@
     <Compile Include="Sklad\SkladWindow.xaml.cs">
       <DependentUpon>SkladWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="KPP\PageKPP.xaml">
+    <Page Include="KPP\WindowKPP.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

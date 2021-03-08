@@ -27,8 +27,8 @@ namespace РегистрантКПП
 
         private void btn_kpp_Click(object sender, RoutedEventArgs e)
         {
-            KPP.PageKPP pageKPP = new KPP.PageKPP();
-            this.Content = pageKPP;
+            KPP.WindowKPP windowKPP = new KPP.WindowKPP();
+            windowKPP.Show();
         }
     }
 }

@@ -17,9 +17,10 @@ namespace РегистрантКПП.DB
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
-        public string Patronomic { get; set; }
         public System.DateTime DateTime { get; set; }
         public string Info { get; set; }
         public string Phone { get; set; }
+        public Nullable<System.DateTime> TimeArrive { get; set; }
+        public Nullable<System.DateTime> TimeLeft { get; set; }
     }
 }

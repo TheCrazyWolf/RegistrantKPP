@@ -21,10 +21,11 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SecondName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Patronomic" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Info" Type="nvarchar" MaxLength="150" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="TimeArrive" Type="datetime" />
+          <Property Name="TimeLeft" Type="datetime" />
         </EntityType>
         <EntityContainer Name="Хранилище RegistrantModelContainer">
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
@@ -50,10 +51,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patronomic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Info" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeArrive" Type="DateTime" Precision="3" />
+          <Property Name="TimeLeft" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityContainer Name="RegistrantEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Chat" EntityType="Self.Chat" />
@@ -78,12 +80,13 @@
           <EntitySetMapping Name="Registrants">
             <EntityTypeMapping TypeName="RegistrantModel.Registrants">
               <MappingFragment StoreEntitySet="Registrants">
+                <ScalarProperty Name="TimeLeft" ColumnName="TimeLeft" />
+                <ScalarProperty Name="TimeArrive" ColumnName="TimeArrive" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="Patronomic" ColumnName="Patronomic" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -102,7 +105,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />

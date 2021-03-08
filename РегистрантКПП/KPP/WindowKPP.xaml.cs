@@ -10,29 +10,32 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
-
 
 namespace РегистрантКПП.KPP
 {
     /// <summary>
-    /// Логика взаимодействия для PageKPP.xaml
+    /// Логика взаимодействия для WindowKPP.xaml
     /// </summary>
-    public partial class PageKPP : Page
+    public partial class WindowKPP : Window
     {
+
         protected DB.Registrants registrants;
         protected DB.Chat chats;
         Controllers.Chat chat = new Controllers.Chat();
+        Controllers.Driver driver = new Controllers.Driver();
 
-
-        public PageKPP()
+        public WindowKPP()
         {
             InitializeComponent();
             Thread thread = new Thread(new ThreadStart(Refresher));
             thread.Start();
+
+            var s = driver.driverVs.ToList().OrderByDescending(x => x.Id);
+            Drivers.ItemsSource = s;
         }
+
 
         void Scroll()
         {
@@ -70,7 +73,7 @@ namespace РегистрантКПП.KPP
 
                 throw;
             }
-            
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -80,7 +83,6 @@ namespace РегистрантКПП.KPP
 
             registrants.FirstName = tb_FirstName.Text;
             registrants.SecondName = tb_secondname.Text;
-            registrants.Patronomic = tb_Patronomic.Text;
             registrants.Phone = tb_Phone.Text;
             registrants.DateTime = DateTime.Now;
             registrants.Info = tb_info.Text;
@@ -90,7 +92,7 @@ namespace РегистрантКПП.KPP
                 ef.Registrants.Add(registrants);
                 ef.SaveChanges();
                 MessageBox.Show("Вы успешно зарегистрировались", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
-                tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Patronomic.Text = ""; tb_Phone.Text = ""; tb_info.Text = "";
+                tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Phone.Text = ""; tb_info.Text = "";
             }
             catch (Exception)
             {
