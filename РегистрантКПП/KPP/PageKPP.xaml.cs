@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
+
 
 namespace РегистрантКПП.KPP
 {
@@ -25,7 +27,9 @@ namespace РегистрантКПП.KPP
         {
             InitializeComponent();
             lb_chat.ItemsSource = chat.Chats;
-            //Scroll();
+
+            Thread thread = new Thread(new ThreadStart(Scroll));
+            thread.Start();
         }
 
         public void Button_Click(object sender, RoutedEventArgs e)
@@ -37,8 +41,10 @@ namespace РегистрантКПП.KPP
 
         public void Scroll()
         {
-            lb_chat.SelectedIndex = lb_chat.Items.Count - 1;
-            lb_chat.ScrollIntoView(lb_chat.SelectedItem);
+            Thread.Sleep(2000);
+            Dispatcher.Invoke(() => lb_chat.Focus());
+            Dispatcher.Invoke(() => lb_chat.SelectedIndex = lb_chat.Items.Count - 1);
+            Dispatcher.Invoke(() => lb_chat.ScrollIntoView(lb_chat.SelectedItem));
         }
     }
 }
