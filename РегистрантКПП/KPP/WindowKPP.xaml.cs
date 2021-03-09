@@ -32,6 +32,7 @@ namespace РегистрантКПП.KPP
             //thread.Start();
 
             Drivers.ItemsSource = driver.driverVs.ToList();
+            
         }
 
         void Scroll()

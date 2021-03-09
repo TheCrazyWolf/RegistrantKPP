@@ -28,15 +28,16 @@ namespace РегистрантКПП.Controllers
             Phone = registrants.Phone;
             Info = registrants.Info;
 
-            if (registrants.TimeLeft == null)
-            {
-                btn_Left = "Visible";
-                btn_Arrive = "Collapsed";
-            }
-            else
+            
+            if (registrants.TimeArrive == null)
             {
                 btn_Left = "Collapsed";
                 btn_Arrive = "Visible";
+            }
+            else
+            {
+                btn_Left = "Visible";
+                btn_Arrive = "Collapsed";
             }
 
         }
