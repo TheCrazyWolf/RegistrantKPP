@@ -35,10 +35,10 @@ namespace РегистрантКПП.Controllers
             {
                 if (registrants.TimeArrive == null)
                 {
-                    btn_Arrive = "Collapsed";
+                    btn_Left = "Collapsed";
                     btn_Arrive = "Visible";
                 }
-                btn_Arrive = "Visible";
+                btn_Left = "Visible";
                 btn_Arrive = "Collapsed";
             }
 

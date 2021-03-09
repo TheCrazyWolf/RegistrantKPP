@@ -29,13 +29,18 @@ namespace РегистрантКПП.KPP
         public WindowKPP()
         {
             InitializeComponent();
-            Thread thread = new Thread(new ThreadStart(Refresher));
-            thread.Start();
+            //Thread thread = new Thread(new ThreadStart(Refresher));
+            //thread.Start();
 
+            SortById();
+        }
+
+        void SortById()
+        {
+            Drivers.ItemsSource = driver.driverVs.ToList();
             var s = driver.driverVs.ToList().OrderByDescending(x => x.Id);
             Drivers.ItemsSource = s;
         }
-
 
         void Scroll()
         {

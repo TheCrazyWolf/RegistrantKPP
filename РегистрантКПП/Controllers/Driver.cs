@@ -8,51 +8,53 @@ namespace РегистрантКПП.Controllers
 {
     public class Driver
     {
+        //Лист со списком водителей (??)
         public List<DriverV> driverVs { get; set; }
-        public List<DriverV> driverALL { get; set; }
+
+        //Подкл
         DB.RegistrantEntities ef = new DB.RegistrantEntities();
-        
 
         public Driver()
         {
+            LoadList();
+        }
+
+
+        void LoadList()
+        {
+            driverVs = null;
+            //Новый лист
             driverVs = new List<DriverV>();
+
+            //Временный лист из бд
             List<DB.Registrants> drivers = ef.Registrants.ToList();
 
-            //drivers = ef.Registrants.ToList();
+            //drivers = ef.Registrants.ToList(); непонятная хрень??! без неё прекрасно все работает
 
+            //Перебор в листах данных
             foreach (var item in drivers)
             {
-                //
+                //Проверка убыл ли водитель?
                 if (item.TimeLeft == null)
                 {
+                    //Если не убыл, то -
                     DriverV driverV = new DriverV(item);
+
+                    //Проверяем заезжал ли водитель на склад
                     if (item.TimeArrive == null)
                     {
+                        //Соотвественно добавляем
                         driverVs.Add(driverV);
                     }
-                    driverVs.Add(driverV);
+                    //В любом случае добавляем
+                    //driverVs.Add(driverV);
                 }
                 else
                 {
-                   
+                    //Если он уже убыл, то скипаем
                 }
             }
         }
 
-        public void Refresh()
-        {
-            driverVs = null;
-            driverVs = new List<DriverV>();
-            List<DB.Registrants> drivers = ef.Registrants.ToList();
-
-            drivers = ef.Registrants.ToList();
-
-            foreach (var item in drivers)
-            {
-                DriverV driverV = new DriverV(item);
-                driverVs.Add(driverV);
-            }
-
-        }
     }
 }
