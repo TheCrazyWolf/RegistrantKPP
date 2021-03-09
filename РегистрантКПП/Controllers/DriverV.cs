@@ -15,9 +15,6 @@ namespace РегистрантКПП.Controllers
         public string Phone { get; set; }
         public string Info { get; set; }
         
-        public bool DriverLeft { get; set; }
-
-        public int SordID { get; set; }
 
         public string btn_Arrive { get; set; }
         public string btn_Left { get; set; }
@@ -33,13 +30,13 @@ namespace РегистрантКПП.Controllers
 
             if (registrants.TimeLeft == null)
             {
-                if (registrants.TimeArrive == null)
-                {
-                    btn_Left = "Collapsed";
-                    btn_Arrive = "Visible";
-                }
                 btn_Left = "Visible";
                 btn_Arrive = "Collapsed";
+            }
+            else
+            {
+                btn_Left = "Collapsed";
+                btn_Arrive = "Visible";
             }
 
         }

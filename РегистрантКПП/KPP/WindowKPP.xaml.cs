@@ -20,10 +20,9 @@ namespace РегистрантКПП.KPP
     /// </summary>
     public partial class WindowKPP : Window
     {
-
         protected DB.Registrants registrants;
-        protected DB.Chat chats;
-        Controllers.Chat chat = new Controllers.Chat();
+        //protected DB.Chat chats;
+        //Controllers.Chat chat = new Controllers.Chat();
         Controllers.Driver driver = new Controllers.Driver();
 
         public WindowKPP()
@@ -32,14 +31,7 @@ namespace РегистрантКПП.KPP
             //Thread thread = new Thread(new ThreadStart(Refresher));
             //thread.Start();
 
-            SortById();
-        }
-
-        void SortById()
-        {
             Drivers.ItemsSource = driver.driverVs.ToList();
-            var s = driver.driverVs.ToList().OrderByDescending(x => x.Id);
-            Drivers.ItemsSource = s;
         }
 
         void Scroll()
@@ -49,7 +41,7 @@ namespace РегистрантКПП.KPP
         }
 
         void Refresher()
-        {
+        {/*
             try
             {
                 chat.Refresh();
@@ -78,10 +70,10 @@ namespace РегистрантКПП.KPP
 
                 throw;
             }
-
+            */
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        void Button_Click_1(object sender, RoutedEventArgs e)
         {
             DB.RegistrantEntities ef = new DB.RegistrantEntities();
             registrants = new DB.Registrants();
@@ -106,7 +98,7 @@ namespace РегистрантКПП.KPP
         }
 
         private void tb_enterchat_KeyDown(object sender, KeyEventArgs e)
-        {
+        {/*
             if (e.Key == Key.Enter)
             {
                 DB.RegistrantEntities ef = new DB.RegistrantEntities();
@@ -126,7 +118,7 @@ namespace РегистрантКПП.KPP
                 {
                     throw;
                 }
-            }
+            }*/
         }
     }
 }

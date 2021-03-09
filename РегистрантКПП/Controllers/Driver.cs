@@ -40,20 +40,21 @@ namespace РегистрантКПП.Controllers
                     //Если не убыл, то -
                     DriverV driverV = new DriverV(item);
 
-                    //Проверяем заезжал ли водитель на склад
-                    if (item.TimeArrive == null)
-                    {
-                        //Соотвественно добавляем
-                        driverVs.Add(driverV);
-                    }
-                    //В любом случае добавляем
-                    //driverVs.Add(driverV);
+                    //Добавляем
+                    driverVs.Add(driverV);
+                    
                 }
                 else
                 {
                     //Если он уже убыл, то скипаем
                 }
             }
+
+            //Сортировка по последним
+            var Sort = driverVs.OrderByDescending(x => x.Id).ToList();
+            //Возращаем обратно в лист
+            driverVs = Sort;
+
         }
 
     }
