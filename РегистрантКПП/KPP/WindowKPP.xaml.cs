@@ -30,9 +30,8 @@ namespace РегистрантКПП.KPP
             InitializeComponent();
             //Thread thread = new Thread(new ThreadStart(Refresher));
             //thread.Start();
-
             Drivers.ItemsSource = driver.driverVs.ToList();
-            
+
         }
 
         void Scroll()
@@ -76,6 +75,7 @@ namespace РегистрантКПП.KPP
 
         void Button_Click_1(object sender, RoutedEventArgs e)
         {
+
             DB.RegistrantEntities ef = new DB.RegistrantEntities();
             registrants = new DB.Registrants();
 
@@ -91,6 +91,9 @@ namespace РегистрантКПП.KPP
                 ef.SaveChanges();
                 MessageBox.Show("Вы успешно зарегистрировались", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
                 tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Phone.Text = ""; tb_info.Text = "";
+
+                driver.LoadList();
+                Drivers.ItemsSource = driver.driverVs.ToList();
             }
             catch (Exception)
             {
@@ -120,6 +123,44 @@ namespace РегистрантКПП.KPP
                     throw;
                 }
             }*/
+        }
+
+        private void btn_Arrive_Click(object sender, RoutedEventArgs e)
+        {
+            var bt = e.OriginalSource as Button;
+            var current_driver = bt.DataContext as Controllers.DriverV;
+
+            DB.RegistrantEntities ef = new DB.RegistrantEntities();
+
+            var ef_driver_curr = ef.Registrants.Where(x => x.Id == current_driver.Id).FirstOrDefault();
+            ef_driver_curr.TimeArrive = DateTime.Now;
+
+            ef.SaveChanges();
+
+            UpdateDrivers();
+
+        }
+
+        private void btn_Left_Click(object sender, RoutedEventArgs e)
+        {
+            var bt = e.OriginalSource as Button;
+            var current_driver = bt.DataContext as Controllers.DriverV;
+
+            DB.RegistrantEntities ef = new DB.RegistrantEntities();
+            var ef_driver_curr = ef.Registrants.Where(x => x.Id == current_driver.Id).FirstOrDefault();
+            ef_driver_curr.TimeLeft = DateTime.Now;
+
+            ef.SaveChanges();
+
+            UpdateDrivers();
+
+        }
+
+        void UpdateDrivers()
+        {
+            Drivers.ItemsSource = null;
+            driver.LoadList();
+            Drivers.ItemsSource = driver.driverVs.ToList();
         }
     }
 }

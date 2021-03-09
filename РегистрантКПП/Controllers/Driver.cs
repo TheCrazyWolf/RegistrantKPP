@@ -20,7 +20,7 @@ namespace РегистрантКПП.Controllers
         }
 
 
-        void LoadList()
+        public void LoadList()
         {
             driverVs = null;
             //Новый лист
