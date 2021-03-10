@@ -75,8 +75,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Registrant.settings</DependentUpon>
     </Compile>
-    <Compile Include="Sklad\SkladWindow.xaml.cs">
-      <DependentUpon>SkladWindow.xaml</DependentUpon>
+    <Compile Include="Sklad\WindowSklad.xaml.cs">
+      <DependentUpon>WindowSklad.xaml</DependentUpon>
     </Compile>
     <Page Include="KPP\WindowKPP.xaml">
       <SubType>Designer</SubType>
@@ -115,7 +115,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Sklad\SkladWindow.xaml">
+    <Page Include="Sklad\WindowSklad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,6 +169,7 @@
       <DependentUpon>Registrant.edmx</DependentUpon>
       <LastGenOutput>Registrant.cs</LastGenOutput>
     </Content>
+    <Resource Include="source\Walls.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

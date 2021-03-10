@@ -11,15 +11,10 @@ namespace РегистрантКПП.Controllers
     {
         //Лист со списком водителей (??)
         public ObservableCollection<DriverV> driverVs { get; set; }
-
-        //Подкл
-        
-
         public Driver()
         {
             LoadList();
         }
-
 
         public void LoadList()
         {
@@ -27,6 +22,8 @@ namespace РегистрантКПП.Controllers
 
             //Временный лист из бд
             DB.RegistrantEntities ef = new DB.RegistrantEntities();
+
+            //Пихаем в листы только у тех у кого не проставлено время ппокидания скалада
             List<DB.Registrants> drivers = ef.Registrants.Where(x => x.TimeLeft == null).ToList();
 
             //Перебор в листах данных
@@ -37,11 +34,15 @@ namespace РегистрантКПП.Controllers
    
             }
 
-            //Сортировка по последним
+            //Сортировка по последним записям
             var d = driverVs.OrderByDescending(x => x.Id).ToList();
+            
+            //Очистка шлаков и токсинов
             driverVs.Clear();
+
+            //Тот же самый перебор данных только в уже в основной лист (который был очищен) типа как цикл foreach
             d.ForEach(x => driverVs.Add(x));
-            //Возращаем обратно в лист
+            
             ef.Dispose();
 
         }

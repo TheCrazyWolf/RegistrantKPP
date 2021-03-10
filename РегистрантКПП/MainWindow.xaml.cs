@@ -30,5 +30,11 @@ namespace РегистрантКПП
             KPP.WindowKPP windowKPP = new KPP.WindowKPP();
             windowKPP.Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Sklad.WindowSklad windowSklad = new Sklad.WindowSklad();
+            windowSklad.Show();
+        }
     }
 }

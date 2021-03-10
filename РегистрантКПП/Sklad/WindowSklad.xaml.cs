@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace РегистрантКПП.Sklad
 {
     /// <summary>
-    /// Логика взаимодействия для SkladWindow.xaml
+    /// Логика взаимодействия для WindowSklad.xaml
     /// </summary>
-    public partial class SkladWindow : Page
+    public partial class WindowSklad : Window
     {
-        public SkladWindow()
+        public WindowSklad()
         {
             InitializeComponent();
         }
+
     }
 }

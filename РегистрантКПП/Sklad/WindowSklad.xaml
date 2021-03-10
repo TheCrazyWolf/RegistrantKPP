@@ -1,0 +1,113 @@
+﻿<Window x:Class="РегистрантКПП.Sklad.WindowSklad"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:РегистрантКПП.Sklad"
+        mc:Ignorable="d"
+        Title="РегистрантКПП  - Режим склада" Height="795" Width="927" WindowState="Maximized" MinHeight="677" MinWidth="1440" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="931*"/>
+            <ColumnDefinition Width="501*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Height="69" VerticalAlignment="Top" Margin="20,20,20,0" Grid.ColumnSpan="2" >
+            <Grid.Background>
+                <ImageBrush ImageSource="/РегистрантКПП;component/source/Walls.jpg" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <TextBlock  Margin="100,10,524,10" FontSize="32" FontWeight="Light" TextWrapping="Wrap" Text="Регистрация и учет водителей" VerticalAlignment="Center"  Height="49" Foreground="White"/>
+        </Grid>
+        <Grid Margin="121,97,35,-7" RenderTransformOrigin="0.13,-0.11">
+            <TextBlock Margin="0,10,283,0" TextWrapping="Wrap" Text="Учет водителей" FontSize="29" FontWeight="Light" VerticalAlignment="Top"  Height="42" Foreground="#FF155C97"/>
+            <ListBox x:Name="Drivers" Margin="-11,119,10,43" BorderBrush="{x:Null}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid >
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="lb_id" Text="{Binding Id}" Visibility="Hidden" />
+                            <TextBlock x:Name="lb_SecondName" Text="{Binding SecondName}" Grid.Column="0" Padding="5" VerticalAlignment="Center" />
+                            <TextBlock x:Name="lb_FirstName" Text="{Binding FirstName}" Grid.Column="1" Padding="5" VerticalAlignment="Center" />
+                            <TextBlock  x:Name="lb_Phone" Text="{Binding Phone}" Grid.Column="2" Margin="5" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="lb_DateTime" Text="{Binding DateTime}" Grid.Column="3" Margin="5" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="lb_status" Text="{Binding Status}" Grid.Column="3" Margin="5" VerticalAlignment="Center"/>
+
+                            <TextBlock x:Name="lb_info" Text="{Binding Info}" Visibility="Hidden"/>
+                            <TextBlock x:Name="lb_TimeArrive" Text="{Binding TimeArrive}" Visibility="Hidden"/>
+                            <TextBlock x:Name="lb_TimeLeft" Text="{Binding TimeLeft}" Visibility="Hidden"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox x:Name="Drivers_Copy" Margin="-11,85,10,0" BorderBrush="{x:Null}" Height="34" VerticalAlignment="Top">
+                <Grid >
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="ID" Visibility="Hidden" />
+                    <TextBlock Text="Фамилия" Grid.Column="0" Padding="5"/>
+                    <TextBlock Text="Имя" Grid.Column="1" Padding="5"/>
+                    <TextBlock Text="Телефон" Grid.Column="2" Margin="5"/>
+                    <TextBlock Text="Время регистрации" Grid.Column="3" Margin="5"/>
+                    <TextBlock Text="Статус" Grid.Column="4" Margin="5"/>
+                </Grid>
+            </ListBox>
+            <CheckBox Content="Показывать всех и вся" HorizontalAlignment="Left" Margin="428,62,0,0" VerticalAlignment="Top" Width="168"/>
+            <Button Content="Новый водитель" HorizontalAlignment="Left" Margin="0,57,0,0" VerticalAlignment="Top" Width="119" Height="23"/>
+            <Button Content="Открыть в таблице" HorizontalAlignment="Left" Margin="124,57,0,0" VerticalAlignment="Top" Width="142" Height="23"/>
+            <Button Content="Обновить данные" HorizontalAlignment="Left" Margin="271,57,0,0" VerticalAlignment="Top" Width="142" Height="23"/>
+        </Grid>
+        <Grid Margin="11,97,20,10" RenderTransformOrigin="0.13,-0.11" Grid.Column="1">
+            <GroupBox Header="Выгрузка из БД" FontSize="14" Margin="10,58,10,0" Height="370" VerticalAlignment="Top">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="tb_id" FontSize="15" IsEnabled="False" Height="22" Margin="10,34,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="4554"/>
+                        <TextBox x:Name="tb_firstname" FontSize="18" Height="28" Margin="10,95,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Имя"/>
+                        <TextBox x:Name="tb_secondname" FontSize="18" Height="26" Margin="10,150,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Фамилия"/>
+                        <TextBox x:Name="tb_phone" FontSize="18" Height="26" Margin="10,204,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="79001231123" />
+                        <TextBox x:Name="tb_info" FontSize="18" Height="61" Margin="10,273,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="7900123112" />
+                        <TextBlock Margin="10,249,10,0" TextWrapping="Wrap" Text="Дополнительно" VerticalAlignment="Top"/>
+                        <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" Text="Карточка №" VerticalAlignment="Top"/>
+                        <TextBlock Margin="10,76,10,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top"/>
+                        <TextBlock Margin="10,131,10,0" TextWrapping="Wrap" Text="Фамилия" VerticalAlignment="Top"/>
+                        <TextBlock Margin="10,185,10,0" TextWrapping="Wrap" Text="Номер телефона" VerticalAlignment="Top"/>
+
+                    </Grid>
+                </ScrollViewer>
+
+            </GroupBox>
+            <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" FontWeight="Light" FontSize="29" Foreground="#FF155C97" Height="48" VerticalAlignment="Top" Text="Карточка водителя"/>
+            <GroupBox Header="Учет водителя" FontSize="14" Margin="10,433,10,0" Height="101" VerticalAlignment="Top">
+                <Grid>
+                    <TextBlock TextWrapping="Wrap" Text="Зарегистрирован:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="121"/>
+                    <TextBlock Name="tb_DateTime" TextWrapping="Wrap" Text="01.01.1970 03:00" VerticalAlignment="Top" Margin="131,10,10,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="Заехал на склад:" VerticalAlignment="Top" Margin="10,29,0,0" HorizontalAlignment="Left" Width="121"/>
+                    <TextBlock Name="tb_TimeArrive" TextWrapping="Wrap" Text="01.01.1970 03:00" VerticalAlignment="Top" Margin="131,29,10,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="Покинул склад:" VerticalAlignment="Top" Margin="10,48,0,0" HorizontalAlignment="Left" Width="121"/>
+                    <TextBlock x:Name="tb_TimeLeft" TextWrapping="Wrap" Text="01.01.1970 03:00" VerticalAlignment="Top" Margin="131,48,10,0"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Действия" FontSize="14" Margin="10,539,10,0" Height="114" VerticalAlignment="Top">
+                <Grid>
+                    <Button x:Name="btn_save" Content="Сохранить изменения" Foreground="White"  Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="178"/>
+                    <Button x:Name="btn_done" Content="Отметь как выполенную" Foreground="White"  Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="193,10,0,0" HorizontalAlignment="Left" Width="235"/>
+                    <Button x:Name="btn_delete" Content="Удалить запись из базы данных" Foreground="White"  Background="#FFBD5A4B" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="10,45,0,0" HorizontalAlignment="Left" Width="263"/>
+                    <Button x:Name="btn_exit" Content="Закрыть карточку" Foreground="White"  Background="#FFBD5A4B" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="278,45,0,0" HorizontalAlignment="Left" Width="150"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+    </Grid>
+</Window>

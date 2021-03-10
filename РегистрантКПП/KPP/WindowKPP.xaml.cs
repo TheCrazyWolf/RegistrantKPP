@@ -77,7 +77,7 @@ namespace РегистрантКПП.KPP
         void Button_Click_1(object sender, RoutedEventArgs e)
         {
             BlurEffect effect = new BlurEffect();
-            effect.Radius = 15;
+            effect.Radius = 20;
             MainGrid.Effect = effect;
 
             if (tb_FirstName.Text == "" && tb_secondname.Text == "" && tb_Phone.Text == "")
@@ -145,7 +145,7 @@ namespace РегистрантКПП.KPP
         private void btn_Arrive_Click(object sender, RoutedEventArgs e)
         {
             BlurEffect effect = new BlurEffect();
-            effect.Radius = 15;
+            effect.Radius = 20;
             MainGrid.Effect = effect;
 
             var bt = e.OriginalSource as Button;
@@ -182,7 +182,7 @@ namespace РегистрантКПП.KPP
         {
 
             BlurEffect effect = new BlurEffect();
-            effect.Radius = 15;
+            effect.Radius = 20;
             MainGrid.Effect = effect;
 
             var bt = e.OriginalSource as Button;
