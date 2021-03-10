@@ -1,0 +1,25 @@
+﻿<Window x:Class="РегистрантКПП.Sklad.Table"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:РегистрантКПП.Sklad"
+        mc:Ignorable="d"
+        Title="БД Регистрантов (Все записи)" Height="450" Width="800" WindowState="Maximized">
+    <Grid >
+        <DataGrid x:Name="data" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№ записи" Binding="{Binding Id}" Width="auto" FontSize="18"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" Width="auto" FontSize="18"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="auto" FontSize="18"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="auto"  FontSize="18"/>
+                <DataGridTextColumn Header="Дополнительно" Binding="{Binding Info}" Width="auto"  FontSize="18"/>
+                <DataGridTextColumn Header="Регистрация" Binding="{Binding DateTime}" Width="auto" FontSize="18"/>
+                <DataGridTextColumn Header="Прибытие" Binding="{Binding TimeArrive}" Width="auto" FontSize="18"/>
+                <DataGridTextColumn Header="Убытие" Binding="{Binding TimeLeft}" Width="auto" FontSize="18"/>
+                <DataGridTextColumn Header="Отметки удаления" Binding="{Binding Deleted}" Width="auto" FontSize="18"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

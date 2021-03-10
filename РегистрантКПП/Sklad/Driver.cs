@@ -24,7 +24,7 @@ namespace РегистрантКПП.Sklad
             DB.RegistrantEntities ef = new DB.RegistrantEntities();
 
             //Пихаем в листы только у тех у кого не проставлено время ппокидания скалада
-            List<DB.Registrants> drivers = ef.Registrants.Where(x => x.TimeLeft == null && x.Deleted == null).ToList();
+            List<DB.Registrants> drivers = ef.Registrants.Where(x => (x.Deleted != "D") && (x.TimeLeft == null)).ToList();
 
             //Перебор в листах данных
             foreach (var item in drivers)
@@ -81,6 +81,7 @@ namespace РегистрантКПП.Sklad
 
         public void LoadListAllWithDel()
         {
+           
             driverVs = new ObservableCollection<DriverV>();
 
             //Временный лист из бд

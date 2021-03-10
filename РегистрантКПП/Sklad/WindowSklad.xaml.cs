@@ -108,7 +108,7 @@ namespace РегистрантКПП.Sklad
                     driv.FirstName = tb_firstname.Text;
                     driv.SecondName = tb_secondname.Text;
                     driv.Phone = tb_phone.Text;
-                    driv.Info = tb_info.Text;
+                    driv.Info = tb_info.Text + "\n" + DateTime.Now + " внесены изменения";
 
                     ef.SaveChanges();
                     ef.Dispose();
@@ -140,6 +140,7 @@ namespace РегистрантКПП.Sklad
                     DB.RegistrantEntities ef = new DB.RegistrantEntities();
                     var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
                     driv.Deleted = "D";
+                    driv.Info = tb_info.Text + "\n" + DateTime.Now + " карточка удалена";
                     ef.SaveChanges();
                     ef.Dispose();
                     Refresh();
@@ -244,7 +245,7 @@ namespace РегистрантКПП.Sklad
                         registrants.SecondName = tbx_secondname.Text;
                         registrants.Phone = tbx_Phone.Text;
                         registrants.DateTime = DateTime.Now;
-                        registrants.Info = tb_info.Text;
+                        registrants.Info = tbx_info.Text;
                         ef.Registrants.Add(registrants);
                         ef.SaveChanges();
                         MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -278,7 +279,8 @@ namespace РегистрантКПП.Sklad
 
         private void btn_opentable_Click(object sender, RoutedEventArgs e)
         {
-
+            Table table = new Table();
+            table.Show();
         }
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
@@ -290,7 +292,6 @@ namespace РегистрантКПП.Sklad
             var sDOP = driver.driverVs.Where(t => t.SecondName.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
             data.AddRange(sDOP);
             data.Distinct();
-
             Drivers.ItemsSource = data;
         }
     }

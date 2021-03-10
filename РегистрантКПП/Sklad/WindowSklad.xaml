@@ -79,7 +79,7 @@
                         <TextBox x:Name="tb_firstname" FontSize="18" Height="28" Margin="10,95,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding FirstName}"/>
                         <TextBox x:Name="tb_secondname" FontSize="18" Height="26" Margin="10,150,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding SecondName}"/>
                         <TextBox x:Name="tb_phone" FontSize="18" Height="26" Margin="10,204,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding Phone}" />
-                        <TextBox x:Name="tb_info" FontSize="18" Height="61" Margin="10,273,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding Info}" />
+                        <TextBox x:Name="tb_info" FontSize="14" Height="61" Margin="10,273,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding Info}" />
                         <TextBlock Margin="10,249,10,0" TextWrapping="Wrap" Text="Дополнительно" VerticalAlignment="Top"/>
                         <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" Text="Карточка №" VerticalAlignment="Top"/>
                         <TextBlock Margin="10,76,10,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top"/>
