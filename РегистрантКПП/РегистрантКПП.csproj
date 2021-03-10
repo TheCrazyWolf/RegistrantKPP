@@ -67,6 +67,8 @@
     <Compile Include="Controllers\ChatV.cs" />
     <Compile Include="Controllers\Driver.cs" />
     <Compile Include="Controllers\DriverV.cs" />
+    <Compile Include="Sklad\Driver.cs" />
+    <Compile Include="Sklad\DriverV.cs" />
     <Compile Include="KPP\WindowKPP.xaml.cs">
       <DependentUpon>WindowKPP.xaml</DependentUpon>
     </Compile>
