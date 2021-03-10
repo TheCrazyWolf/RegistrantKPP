@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using System.Windows.Media.Effects;
+
 
 namespace РегистрантКПП.KPP
 {
@@ -24,13 +26,12 @@ namespace РегистрантКПП.KPP
         //protected DB.Chat chats;
         //Controllers.Chat chat = new Controllers.Chat();
         Controllers.Driver driver = new Controllers.Driver();
-
         public WindowKPP()
         {
             InitializeComponent();
             //Thread thread = new Thread(new ThreadStart(Refresher));
             //thread.Start();
-            Drivers.ItemsSource = driver.driverVs.ToList();
+            UpdateDrivers();
 
         }
 
@@ -75,30 +76,46 @@ namespace РегистрантКПП.KPP
 
         void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            BlurEffect effect = new BlurEffect();
+            effect.Radius = 15;
+            MainGrid.Effect = effect;
 
-            DB.RegistrantEntities ef = new DB.RegistrantEntities();
-            registrants = new DB.Registrants();
-
-            registrants.FirstName = tb_FirstName.Text;
-            registrants.SecondName = tb_secondname.Text;
-            registrants.Phone = tb_Phone.Text;
-            registrants.DateTime = DateTime.Now;
-            registrants.Info = tb_info.Text;
-
-            try
+            if (tb_FirstName.Text == "" && tb_secondname.Text == "" && tb_Phone.Text == "")
             {
-                ef.Registrants.Add(registrants);
-                ef.SaveChanges();
-                MessageBox.Show("Вы успешно зарегистрировались", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
-                tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Phone.Text = ""; tb_info.Text = "";
-
-                driver.LoadList();
-                Drivers.ItemsSource = driver.driverVs.ToList();
+                MessageBox.Show("Не все требуемые поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-            catch (Exception)
+            else
             {
-                MessageBox.Show("Произошла ошибка при регистрации. Пожалуйста обратитесь к персоналу", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult result = MessageBox.Show("Будет произведена регистрация водителя: " + tb_FirstName.Text + " " + tb_secondname.Text + " " + tb_Phone.Text, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        DB.RegistrantEntities ef = new DB.RegistrantEntities();
+                        registrants = new DB.Registrants();
+
+                        registrants.FirstName = tb_FirstName.Text;
+                        registrants.SecondName = tb_secondname.Text;
+                        registrants.Phone = tb_Phone.Text;
+                        registrants.DateTime = DateTime.Now;
+                        registrants.Info = tb_info.Text;
+                        ef.Registrants.Add(registrants);
+                        ef.SaveChanges();
+                        MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+                        tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Phone.Text = ""; tb_info.Text = "";
+
+                        driver.LoadList();
+                        Drivers.ItemsSource = driver.driverVs.ToList();
+                        ef.Dispose();
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Произошла ошибка при регистрации. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
+
+            MainGrid.Effect = null;
         }
 
         private void tb_enterchat_KeyDown(object sender, KeyEventArgs e)
@@ -127,32 +144,73 @@ namespace РегистрантКПП.KPP
 
         private void btn_Arrive_Click(object sender, RoutedEventArgs e)
         {
+            BlurEffect effect = new BlurEffect();
+            effect.Radius = 15;
+            MainGrid.Effect = effect;
+
             var bt = e.OriginalSource as Button;
             var current_driver = bt.DataContext as Controllers.DriverV;
 
-            DB.RegistrantEntities ef = new DB.RegistrantEntities();
+            MessageBoxResult result = MessageBox.Show("Статус водителя будет изменен (ПРИБЫЛ) -: " + current_driver.FirstName + " " + current_driver.SecondName + " " + current_driver.Phone, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
 
-            var ef_driver_curr = ef.Registrants.Where(x => x.Id == current_driver.Id).FirstOrDefault();
-            ef_driver_curr.TimeArrive = DateTime.Now;
+                    var ef_driver_curr = ef.Registrants.FirstOrDefault(x => x.Id == current_driver.Id);
+                    if (ef_driver_curr != null)
+                    {
+                        ef_driver_curr.TimeArrive = DateTime.Now;
+                    }
+                    ef.SaveChanges();
+                    ef.Dispose();
 
-            ef.SaveChanges();
+                    UpdateDrivers();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Произошла ошибка при смене статуса. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
-            UpdateDrivers();
+            }
 
+            MainGrid.Effect = null;
         }
 
         private void btn_Left_Click(object sender, RoutedEventArgs e)
         {
+
+            BlurEffect effect = new BlurEffect();
+            effect.Radius = 15;
+            MainGrid.Effect = effect;
+
             var bt = e.OriginalSource as Button;
             var current_driver = bt.DataContext as Controllers.DriverV;
 
-            DB.RegistrantEntities ef = new DB.RegistrantEntities();
-            var ef_driver_curr = ef.Registrants.Where(x => x.Id == current_driver.Id).FirstOrDefault();
-            ef_driver_curr.TimeLeft = DateTime.Now;
+            MessageBoxResult result = MessageBox.Show("Статус водителя будет изменен (ПОКИНУЛ) -: " + current_driver.FirstName + " " + current_driver.SecondName + " " + current_driver.Phone, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var ef_driver_curr = ef.Registrants.FirstOrDefault(x => x.Id == current_driver.Id);
+                        if (ef_driver_curr != null)
+                        {
+                            ef_driver_curr.TimeLeft = DateTime.Now;
+                        }
+                        ef.SaveChanges();
+                    }
+                    UpdateDrivers();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Произошла ошибка при смене статуса. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
 
-            ef.SaveChanges();
-
-            UpdateDrivers();
+            MainGrid.Effect = null;
 
         }
 
@@ -161,6 +219,8 @@ namespace РегистрантКПП.KPP
             Drivers.ItemsSource = null;
             driver.LoadList();
             Drivers.ItemsSource = driver.driverVs.ToList();
+            //Drivers.InvalidateArrange();
+            //Drivers.UpdateLayout();
         }
     }
 }

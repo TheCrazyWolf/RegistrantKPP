@@ -19,6 +19,11 @@ namespace РегистрантКПП.Controllers
         public string btn_Arrive { get; set; }
         public string btn_Left { get; set; }
 
+        public DriverV()
+        {
+
+        }
+
         public DriverV(DB.Registrants registrants)
         {
             Id = registrants.Id;

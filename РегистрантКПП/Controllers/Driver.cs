@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace РегистрантКПП.Controllers
 {
     public class Driver
     {
         //Лист со списком водителей (??)
-        public List<DriverV> driverVs { get; set; }
+        public ObservableCollection<DriverV> driverVs { get; set; }
 
         //Подкл
-        DB.RegistrantEntities ef = new DB.RegistrantEntities();
+        
 
         public Driver()
         {
@@ -22,38 +23,26 @@ namespace РегистрантКПП.Controllers
 
         public void LoadList()
         {
-            driverVs = null;
-            //Новый лист
-            driverVs = new List<DriverV>();
+            driverVs = new ObservableCollection<DriverV>();
 
             //Временный лист из бд
-            List<DB.Registrants> drivers = ef.Registrants.ToList();
-
-            //drivers = ef.Registrants.ToList(); непонятная хрень??! без неё прекрасно все работает
+            DB.RegistrantEntities ef = new DB.RegistrantEntities();
+            List<DB.Registrants> drivers = ef.Registrants.Where(x => x.TimeLeft == null).ToList();
 
             //Перебор в листах данных
             foreach (var item in drivers)
             {
-                //Проверка убыл ли водитель?
-                if (item.TimeLeft == null)
-                {
-                    //Если не убыл, то -
-                    DriverV driverV = new DriverV(item);
-
-                    //Добавляем
-                    driverVs.Add(driverV);
-                    
-                }
-                else
-                {
-                    //Если он уже убыл, то скипаем
-                }
+                 DriverV driverV = new DriverV(item);
+                 driverVs.Add(driverV);
+   
             }
 
             //Сортировка по последним
-            var Sort = driverVs.OrderByDescending(x => x.Id).ToList();
+            var d = driverVs.OrderByDescending(x => x.Id).ToList();
+            driverVs.Clear();
+            d.ForEach(x => driverVs.Add(x));
             //Возращаем обратно в лист
-            driverVs = Sort;
+            ef.Dispose();
 
         }
 
