@@ -21,8 +21,7 @@ namespace РегистрантКПП.Sklad
     /// </summary>
     public partial class WindowSklad : Window
     {
-        public bool AdminMode { get; set; }
-
+        protected DB.Registrants registrants;
         public WindowSklad()
         {
             InitializeComponent();
@@ -55,6 +54,7 @@ namespace РегистрантКПП.Sklad
         {
             btn_done_timeLeft.Visibility = Visibility.Visible;
             btn_done_TimeArrive.Visibility = Visibility.Visible;
+            new_driver.Visibility = Visibility.Hidden;
             Driver_Info.Visibility = Visibility.Visible;
 
 
@@ -75,6 +75,14 @@ namespace РегистрантКПП.Sklad
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (tb_search.Text == "")
+            {
+                Refresh();
+            }
+            else
+            {
+                btn_search_Click(sender, e);
+            }
 
         }
 
@@ -124,14 +132,14 @@ namespace РегистрантКПП.Sklad
             effect.Radius = 50;
             MainGrid.Effect = effect;
             
-                MessageBoxResult result = MessageBox.Show("Вы действительно ходите удалить карточку №" + tb_id.Text + " на имя " + tb_firstname.Text + " " + tb_secondname.Text, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Information);
+             MessageBoxResult result = MessageBox.Show("Вы действительно ходите удалить карточку №" + tb_id.Text + " на имя " + tb_firstname.Text + " " + tb_secondname.Text, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result == MessageBoxResult.Yes)
             {
                 try
                 {
                     DB.RegistrantEntities ef = new DB.RegistrantEntities();
                     var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    ef.Registrants.Remove(driv);
+                    driv.Deleted = "D";
                     ef.SaveChanges();
                     ef.Dispose();
                     Refresh();
@@ -148,9 +156,142 @@ namespace РегистрантКПП.Sklad
             MainGrid.Effect = null;
         }
 
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+        private void btn_done_TimeArrive_Click(object sender, RoutedEventArgs e)
         {
-            AdminMode = true;
+            BlurEffect effect = new BlurEffect();
+            effect.Radius = 50;
+            MainGrid.Effect = effect;
+
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите обнвить статус водителя " + tb_firstname.Text + " " + tb_secondname.Text + " на ПРИБЫЛ?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
+                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
+                    driv.TimeArrive = DateTime.Now;
+                    ef.SaveChanges();
+                    ef.Dispose();
+                    Refresh();
+                    btn_done_TimeArrive.Visibility = Visibility.Hidden;
+
+                    MessageBox.Show("Данные успешно обновлены", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+            MainGrid.Effect = null;
+        }
+
+        private void btn_done_timeLeft_Click(object sender, RoutedEventArgs e)
+        {
+            BlurEffect effect = new BlurEffect();
+            effect.Radius = 50;
+            MainGrid.Effect = effect;
+
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите обнвить статус водителя " + tb_firstname.Text + " " + tb_secondname.Text + " на ПОКИНУЛ?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
+                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
+                    driv.TimeLeft = DateTime.Now;
+
+                    ef.SaveChanges();
+                    ef.Dispose();
+                    Refresh();
+
+                    btn_done_TimeArrive.Visibility = Visibility.Hidden;
+                    btn_done_timeLeft.Visibility = Visibility.Hidden;
+
+                    MessageBox.Show("Данные успешно обновлены", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+            MainGrid.Effect = null;
+        }
+
+        private void btn_regist_Click(object sender, RoutedEventArgs e)
+        {
+            BlurEffect effect = new BlurEffect();
+            effect.Radius = 20;
+            MainGrid.Effect = effect;
+
+            if (tbx_FirstName.Text == "" && tb_secondname.Text == "" && tbx_Phone.Text == "")
+            {
+                MessageBox.Show("Не все требуемые поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Будет произведена регистрация водителя: " + tbx_FirstName.Text + " " + tbx_secondname.Text + " " + tbx_Phone.Text, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        DB.RegistrantEntities ef = new DB.RegistrantEntities();
+                        registrants = new DB.Registrants();
+
+                        registrants.FirstName = tbx_FirstName.Text;
+                        registrants.SecondName = tbx_secondname.Text;
+                        registrants.Phone = tbx_Phone.Text;
+                        registrants.DateTime = DateTime.Now;
+                        registrants.Info = tb_info.Text;
+                        ef.Registrants.Add(registrants);
+                        ef.SaveChanges();
+                        MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+                        tbx_FirstName.Text = ""; tbx_secondname.Text = ""; tbx_Phone.Text = ""; tbx_info.Text = "";
+                        ef.Dispose();
+                        Refresh();
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Произошла ошибка при регистрации. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+
+            MainGrid.Effect = null;
+            new_driver.Visibility = Visibility.Hidden;
+        }
+
+        private void btn_closed(object sender, RoutedEventArgs e)
+        {
+            new_driver.Visibility = Visibility.Hidden;
+        }
+
+        private void btn_newdriver_Click(object sender, RoutedEventArgs e)
+        {
+            Driver_Info.Visibility = Visibility.Hidden;
+            new_driver.Visibility = Visibility.Visible;
+        }
+
+
+
+        private void btn_opentable_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_search_Click(object sender, RoutedEventArgs e)
+        {
+            Drivers.ItemsSource = null;
+            Driver driver = new Driver();
+            driver.LoadListAllWithDel();
+            var data = driver.driverVs.Where(t => t.SecondName.ToUpper().StartsWith(tb_search.Text.ToUpper())).ToList();
+            var sDOP = driver.driverVs.Where(t => t.SecondName.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
+            data.AddRange(sDOP);
+            data.Distinct();
+
+            Drivers.ItemsSource = data;
         }
     }
 }

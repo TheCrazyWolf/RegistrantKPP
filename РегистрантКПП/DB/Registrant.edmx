@@ -26,6 +26,7 @@
           <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="TimeArrive" Type="datetime" />
           <Property Name="TimeLeft" Type="datetime" />
+          <Property Name="Deleted" Type="char" MaxLength="1" />
         </EntityType>
         <EntityContainer Name="Хранилище RegistrantModelContainer">
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
@@ -56,6 +57,7 @@
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeArrive" Type="DateTime" Precision="3" />
           <Property Name="TimeLeft" Type="DateTime" Precision="3" />
+          <Property Name="Deleted" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityContainer Name="RegistrantEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Chat" EntityType="Self.Chat" />
@@ -80,6 +82,7 @@
           <EntitySetMapping Name="Registrants">
             <EntityTypeMapping TypeName="RegistrantModel.Registrants">
               <MappingFragment StoreEntitySet="Registrants">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="TimeLeft" ColumnName="TimeLeft" />
                 <ScalarProperty Name="TimeArrive" ColumnName="TimeArrive" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />

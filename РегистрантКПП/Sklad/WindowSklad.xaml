@@ -62,13 +62,13 @@
                 </Grid>
             </ListBox>
             <CheckBox x:Name="ch_loadall" IsChecked="True" Content="Показывать &#xD;&#xA;всех и вся" HorizontalAlignment="Left" Margin="691,57,0,0" VerticalAlignment="Top" Width="109" RenderTransformOrigin="0.589,1"/>
-            <Button x:Name="btn_newdriver" Content="Новый водитель" HorizontalAlignment="Left" Margin="270,57,0,0" VerticalAlignment="Top" Width="119" Height="23"/>
-            <Button x:Name="btn_opentable" Content="Открыть в таблице" HorizontalAlignment="Left" Margin="394,57,0,0" VerticalAlignment="Top" Width="142" Height="23"/>
+            <Button x:Name="btn_newdriver" Content="Новый водитель" HorizontalAlignment="Left" Margin="270,57,0,0" VerticalAlignment="Top" Width="119" Height="23" Click="btn_newdriver_Click"/>
+            <Button x:Name="btn_opentable" Content="Открыть в таблице" HorizontalAlignment="Left" Margin="394,57,0,0" VerticalAlignment="Top" Width="142" Height="23" Click="btn_opentable_Click"/>
             <Button x:Name="btn_refresh" Content="Обновить данные" HorizontalAlignment="Left" Margin="541,57,0,0" VerticalAlignment="Top" Width="142" Height="23" Click="btn_refresh_Click" />
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="1,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" TextChanged="TextBox_TextChanged"/>
-            <Button x:Name="btn_opentable_Copy" Content="Поиск по фамилии" HorizontalAlignment="Left" Margin="148,57,0,0" VerticalAlignment="Top" Width="108" Height="23"/>
+            <TextBox x:Name="tb_search" HorizontalAlignment="Left" Height="23" Margin="1,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" TextChanged="TextBox_TextChanged"/>
+            <Button x:Name="btn_search" Content="Поиск по фамилии" HorizontalAlignment="Left" Margin="148,57,0,0" VerticalAlignment="Top" Width="108" Height="23" Click="btn_search_Click"/>
         </Grid>
-        <Grid x:Name="Driver_Info"  Margin="0,97,20,10" RenderTransformOrigin="0.13,-0.11" Grid.Column="1">
+        <Grid Visibility="Hidden" x:Name="Driver_Info"  Margin="0,97,20,10" RenderTransformOrigin="0.13,-0.11" Grid.Column="1">
             <GroupBox Header="Выгрузка из БД" FontSize="14" Margin="10,58,10,0" Height="370" VerticalAlignment="Top">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                     <Grid>
@@ -90,7 +90,7 @@
                 </ScrollViewer>
 
             </GroupBox>
-            <TextBlock  Margin="10,10,10,0" TextWrapping="Wrap" FontWeight="Light" FontSize="29" Foreground="#FF155C97" Height="48" VerticalAlignment="Top" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Text="Карточка водителя"/>
+            <TextBlock  Margin="10,10,10,0" TextWrapping="Wrap" FontWeight="Light" FontSize="29" Foreground="#FF155C97" Height="48" VerticalAlignment="Top"  Text="Карточка водителя"/>
             <GroupBox Header="Учет водителя" FontSize="14" Margin="10,433,10,0" Height="129" VerticalAlignment="Top">
                 <Grid>
                     <TextBlock TextWrapping="Wrap" Text="Зарегистрирован:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="121"/>
@@ -105,12 +105,62 @@
             <GroupBox Header="Действия" FontSize="14" Margin="10,562,10,0" Height="144" VerticalAlignment="Top">
                 <Grid>
                     <Button x:Name="btn_save" Content="Сохранить изменения" Foreground="White"  Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="178" Click="btn_save_Click"/>
-                    <Button x:Name="btn_done_TimeArrive" Content="Заехал на склад" Foreground="White"  Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="10,80,0,0" HorizontalAlignment="Left" Width="222" />
+                    <Button x:Name="btn_done_TimeArrive" Content="Заехал на склад" Foreground="White"  Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="10,80,0,0" HorizontalAlignment="Left" Width="222" Click="btn_done_TimeArrive_Click" />
                     <Button x:Name="btn_delete" Content="Удалить запись из базы данных" Foreground="White"  Background="#FFBD5A4B" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="10,45,0,0" HorizontalAlignment="Left" Width="418" Click="btn_delete_Click"/>
                     <Button x:Name="btn_exit" Content="Закрыть карточку" Foreground="White"  Background="#FFBD5A4B" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="193,10,0,0" HorizontalAlignment="Left" Width="235" Click="btn_exit_Click"/>
-                    <Button x:Name="btn_done_timeLeft" Content="Покинул склад" Foreground="White"  Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="237,80,0,0" HorizontalAlignment="Left" Width="191"/>
+                    <Button x:Name="btn_done_timeLeft" Content="Покинул склад" Foreground="White"  Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" Margin="237,80,0,0" HorizontalAlignment="Left" Width="191" Click="btn_done_timeLeft_Click"/>
                 </Grid>
             </GroupBox>
+        </Grid>
+        <Grid x:Name="new_driver" Visibility="Hidden"  Margin="27,97,35,24" RenderTransformOrigin="0.13,-0.11" Grid.Column="1">
+            <GroupBox Header="Персональные данные водитея" FontSize="14" Margin="10,96,10,0" Height="188" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="tbx_FirstName" FontSize="25" Height="40" Margin="10,41,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    <TextBox x:Name="tbx_secondname" FontSize="25" Height="40" Margin="10,114,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    <TextBlock Margin="10,17,57,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top"/>
+                    <TextBlock Margin="10,90,57,0" TextWrapping="Wrap" Text="Фамилия" VerticalAlignment="Top"/>
+
+                </Grid>
+            </GroupBox>
+            <TextBlock Margin="10,43,10,0" TextWrapping="Wrap" FontWeight="Light" FontSize="29" Foreground="#FF155C97" Height="48" VerticalAlignment="Top" Text="Новый водитель"/>
+            <GroupBox Header="Номер телефона" FontSize="15" Margin="10,289,10,0" Height="91" VerticalAlignment="Top">
+                <Grid Margin="0,0,0,-8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="tbx_Phone" FontSize="25" Height="40" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Дополнительно (необяз)" FontSize="14" Margin="10,385,10,0" Height="85" VerticalAlignment="Top">
+                <Grid>
+                    <TextBox x:Name="tbx_info" Height="40" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+                </Grid>
+            </GroupBox>
+            <Button Click="btn_regist_Click" x:Name="btn_regist" Content="Зарегистрировать" Margin="16,476,0,0" RenderTransformOrigin="0.5,0.5" Foreground="White" Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="187">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.053"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button Click="btn_closed"  Content="Закрыть окно" Margin="209,475,0,0" RenderTransformOrigin="0.5,0.5" Foreground="White" Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="187">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.053"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
         </Grid>
 
     </Grid>

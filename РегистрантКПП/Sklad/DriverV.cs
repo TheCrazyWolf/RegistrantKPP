@@ -20,7 +20,7 @@ namespace РегистрантКПП.Sklad
         public string TimeLeft { get; set; }
         public string Status { get; set; }
 
-
+        public string Deleted { get; set; }
 
         public DriverV()
         {
@@ -37,6 +37,7 @@ namespace РегистрантКПП.Sklad
             Info = registrants.Info;
             TimeArrive = registrants.TimeArrive.ToString();
             TimeLeft = registrants.TimeLeft.ToString();
+            Deleted = registrants.Deleted;
 
             if (registrants.DateTime != null)
             {

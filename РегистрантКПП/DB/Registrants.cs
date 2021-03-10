@@ -22,5 +22,6 @@ namespace РегистрантКПП.DB
         public string Phone { get; set; }
         public Nullable<System.DateTime> TimeArrive { get; set; }
         public Nullable<System.DateTime> TimeLeft { get; set; }
+        public string Deleted { get; set; }
     }
 }
