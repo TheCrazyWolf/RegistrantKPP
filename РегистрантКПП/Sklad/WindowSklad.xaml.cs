@@ -285,16 +285,26 @@ namespace РегистрантКПП.Sklad
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            Drivers.ItemsSource = null;
-            Driver driver = new Driver();
-            driver.LoadListAllWithDel();
-            var data = driver.driverVs.Where(t => t.SecondName.ToUpper().StartsWith(tb_search.Text.ToUpper())).ToList();
-            var sDOP = driver.driverVs.Where(t => t.SecondName.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
-            data.AddRange(sDOP);
+
+            try
+            {
+                Drivers.ItemsSource = null;
+                Driver driver = new Driver();
+                driver.LoadListAllWithDel();
+                var data = driver.driverVs.Where(t => t.SecondName.ToUpper().StartsWith(tb_search.Text.ToUpper())).ToList();
+                var sDOP = driver.driverVs.Where(t => t.SecondName.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
+                data.AddRange(sDOP);
+
+                // data.Distinct().ToArray();
+                var noDupes = data.Distinct().ToList();
+                Drivers.ItemsSource = noDupes;
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Произошла ошибка при обновление списка. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             
-            // data.Distinct().ToArray();
-            var noDupes = data.Distinct().ToList();
-            Drivers.ItemsSource = noDupes;
         }
     }
 }
