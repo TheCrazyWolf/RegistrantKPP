@@ -25,7 +25,10 @@ namespace РегистрантКПП.KPP
         protected DB.Registrants registrants;
         //protected DB.Chat chats;
         //Controllers.Chat chat = new Controllers.Chat();
-        Controllers.Driver driver = new Controllers.Driver();
+        //Controllers.Driver driver = new Controllers.Driver();
+
+        Sklad.Driver driver = new Sklad.Driver();
+        
         public WindowKPP()
         {
             InitializeComponent();
@@ -149,7 +152,7 @@ namespace РегистрантКПП.KPP
             MainGrid.Effect = effect;
 
             var bt = e.OriginalSource as Button;
-            var current_driver = bt.DataContext as Controllers.DriverV;
+            var current_driver = bt.DataContext as Sklad.DriverV;
 
             MessageBoxResult result = MessageBox.Show("Статус водителя будет изменен (ПРИБЫЛ) -: " + current_driver.FirstName + " " + current_driver.SecondName + " " + current_driver.Phone, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
@@ -186,7 +189,7 @@ namespace РегистрантКПП.KPP
             MainGrid.Effect = effect;
 
             var bt = e.OriginalSource as Button;
-            var current_driver = bt.DataContext as Controllers.DriverV;
+            var current_driver = bt.DataContext as Sklad.DriverV;
 
             MessageBoxResult result = MessageBox.Show("Статус водителя будет изменен (ПОКИНУЛ) -: " + current_driver.FirstName + " " + current_driver.SecondName + " " + current_driver.Phone, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)

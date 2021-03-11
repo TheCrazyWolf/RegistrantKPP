@@ -22,6 +22,10 @@ namespace РегистрантКПП.Sklad
 
         public string Deleted { get; set; }
 
+
+        public string btn_Arrive { get; set; }
+        public string btn_Left { get; set; }
+
         public DriverV()
         {
 
@@ -53,6 +57,18 @@ namespace РегистрантКПП.Sklad
                     }
                 }
             }
+
+            if (registrants.TimeArrive == null)
+            {
+                btn_Left = "Collapsed";
+                btn_Arrive = "Visible";
+            }
+            else
+            {
+                btn_Left = "Visible";
+                btn_Arrive = "Collapsed";
+            }
+
         }
 
     }
