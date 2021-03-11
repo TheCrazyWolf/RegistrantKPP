@@ -3,11 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         xmlns:local="clr-namespace:РегистрантКПП"
         mc:Ignorable="d"
-        Title="MainWindow" Height="839.5" Width="1912.4">
+        Title="MainWindow" Height="818" Width="1656.9" MinHeight="555.5" MinWidth="396.9" fw:AcrylicWindow.Enabled="True" >
     <Grid>
-        <Button Content="Этот комп стоит на кпп" x:Name="btn_kpp" Click="btn_kpp_Click" HorizontalAlignment="Left" Margin="156,203,0,0" VerticalAlignment="Top" Width="127" Height="46"/>
-        <Button Content="Этот комп стоит на складе" HorizontalAlignment="Left" Margin="571,203,0,0" VerticalAlignment="Top" Width="127" Height="46" Click="Button_Click"/>
+
+        <Grid x:Name="GridAuth" Visibility="Hidden" Margin="0,0,-1,0" Height="526"  Width="390" fw:PointerTracker.Enabled="True" >
+            <TextBlock TextWrapping="Wrap" Text="Авторизация" FontSize="25" FontWeight="Light" VerticalAlignment="Top" Height="38" Margin="42,159,44,0"/>
+            <TextBlock TextWrapping="Wrap" Text="Логин" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,210,44,0"/>
+            <TextBox Style="{StaticResource TextBoxRevealStyle}"  Height="35" Margin="42,233,44,0" TextWrapping="Wrap" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="sdf" />
+            <TextBlock TextWrapping="Wrap" Text="Пароль" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,280,44,0"/>
+            <TextBox Style="{StaticResource TextBoxRevealStyle}"  Height="36" Margin="42,303,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="dfg"/>
+            <Button x:Name="btn_enter" Content="Вход" FontWeight="Light" HorizontalAlignment="Left" Margin="42,355,0,0" FontSize="16" VerticalAlignment="Top" Width="99" Height="31" Style="{StaticResource ButtonRevealStyle}"/>
+            <Image HorizontalAlignment="Left" Height="74" Margin="163,0,0,389" Source="source/WareHouse.png" VerticalAlignment="Bottom" Width="74"/>
+            <TextBlock TextWrapping="Wrap" FontWeight="Light" VerticalAlignment="Top" Height="43" Margin="42,455,44,0"><Run Text="РегистрантКПП"/><Run Text=" - "/><Run Text="ver. 1.0 (Release)"/><LineBreak/><Run Text="Разработка Алекей Кулагин"/></TextBlock>
+        </Grid>
+        <Grid x:Name="GridError"  Margin="630,98,0,45" fw:PointerTracker.Enabled="True" HorizontalAlignment="Left" Width="390" >
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="25" FontWeight="Light" VerticalAlignment="Top" Height="40" Margin="20,95,27,0" Text="Нет подключения к серверу"/>
+            <TextBlock TextWrapping="Wrap" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,210,44,0"><Run Text="IP"/><Run Text="-адрес или "/><Run Text="hostname"/></TextBlock>
+            <TextBox x:Name="tb_ip" Style="{StaticResource TextBoxRevealStyle}"  Height="35" Margin="42,233,44,0" TextWrapping="Wrap" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="sdf" />
+            <TextBlock TextWrapping="Wrap" Text="Порт" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,271,44,0"/>
+            <TextBox x:Name="tb_port" Style="{StaticResource TextBoxRevealStyle}"  Height="36" Margin="42,294,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="dfg"/>
+            <TextBlock TextWrapping="Wrap" FontWeight="Light" VerticalAlignment="Top" Height="43" Margin="42,592,44,0"><Run Text="РегистрантКПП"/><Run Text=" - "/><Run Text="ver. 1.0 (Release)"/><LineBreak/><Run Text="Разработка Алекcей Кулагин"/></TextBlock>
+            <Image HorizontalAlignment="Left" Height="85" Margin="159,10,0,0" VerticalAlignment="Top" Width="69" Source="source/Disappointed.png" />
+            <TextBlock TextWrapping="Wrap" Text="Название БД" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,336,44,0"/>
+            <TextBox x:Name="tb_bdname" Style="{StaticResource TextBoxRevealStyle}"  Height="36" Margin="42,359,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="dfg"/>
+            <TextBlock TextWrapping="Wrap" Text="Логин" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,403,44,0"/>
+            <TextBox x:Name="tb_bdlogin" Style="{StaticResource TextBoxRevealStyle}"  Height="36" Margin="42,426,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="dfg"/>
+            <TextBlock TextWrapping="Wrap" Text="Пароль" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,470,44,0"/>
+            <TextBox x:Name="tb_bdpass" Style="{StaticResource TextBoxRevealStyle}"  Height="36" Margin="42,493,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="dfg"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="44" Margin="42,140,44,0"><Run Text="Пшш.. Хьюстон у нас проблемы..  "/><LineBreak/><Run Text="Давайте попробуем исправить"/></TextBlock>
+            <Button x:Name="btn_save_settings" Click="btn_save_settings_Click" Content="Сохранить данные и повторить" FontWeight="Light"  HorizontalAlignment="Left" Margin="42,544,0,0" FontSize="16" VerticalAlignment="Top" Width="304" Height="31" Style="{StaticResource ButtonAccentRevealStyle}" Foreground="White"/>
+        </Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="144,193,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="144,309,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
     </Grid>
 </Window>

@@ -23,51 +23,96 @@ namespace РегистрантКПП {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ThisPC {
-            get {
-                return ((string)(this["ThisPC"]));
-            }
-            set {
-                this["ThisPC"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string NamePC {
             get {
                 return ((string)(this["NamePC"]));
             }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        public string IP {
+            get {
+                return ((string)(this["IP"]));
+            }
             set {
-                this["NamePC"] = value;
+                this["IP"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public string ConnectionDB {
+        [global::System.Configuration.DefaultSettingValueAttribute("1433")]
+        public string PORT {
             get {
-                return ((string)(this["ConnectionDB"]));
+                return ((string)(this["PORT"]));
             }
             set {
-                this["ConnectionDB"] = value;
+                this["PORT"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Eula {
+        [global::System.Configuration.DefaultSettingValueAttribute("Registrant")]
+        public string DB {
             get {
-                return ((bool)(this["Eula"]));
+                return ((string)(this["DB"]));
             }
             set {
-                this["Eula"] = value;
+                this["DB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Test")]
+        public string LOGIN {
+            get {
+                return ((string)(this["LOGIN"]));
+            }
+            set {
+                this["LOGIN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1234")]
+        public string PASSWORD {
+            get {
+                return ((string)(this["PASSWORD"]));
+            }
+            set {
+                this["PASSWORD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=127.0.0.1;initial catalog=Registrant;user id=Test;password=1234;MultipleActiveResultSets=True;App=EntityFramework&quot;")]
+        public string OriginalConnString {
+            get {
+                return ((string)(this["OriginalConnString"]));
+            }
+            set {
+                this["OriginalConnString"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=127.0.0.1;initial catalog=Registrant;user id=Test;password=1234;MultipleActiveResultSets=True;App=EntityFramework&quot;")]
+        public string CurrentConnString {
+            get {
+                return ((string)(this["CurrentConnString"]));
+            }
+            set {
+                this["CurrentConnString"] = value;
             }
         }
     }
