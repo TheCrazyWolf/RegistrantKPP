@@ -34,7 +34,7 @@ namespace РегистрантКПП {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
         public string IP {
             get {
                 return ((string)(this["IP"]));
@@ -89,30 +89,6 @@ namespace РегистрантКПП {
             }
             set {
                 this["PASSWORD"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=127.0.0.1;initial catalog=Registrant;user id=Test;password=1234;MultipleActiveResultSets=True;App=EntityFramework&quot;")]
-        public string OriginalConnString {
-            get {
-                return ((string)(this["OriginalConnString"]));
-            }
-            set {
-                this["OriginalConnString"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=127.0.0.1;initial catalog=Registrant;user id=Test;password=1234;MultipleActiveResultSets=True;App=EntityFramework&quot;")]
-        public string CurrentConnString {
-            get {
-                return ((string)(this["CurrentConnString"]));
-            }
-            set {
-                this["CurrentConnString"] = value;
             }
         }
     }
