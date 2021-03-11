@@ -1,24 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Media.Effects;
-using System.Threading;
 
 namespace РегистрантКПП.Sklad
 {
-    /// <summary>
-    /// Логика взаимодействия для WindowSklad.xaml
-    /// </summary>
     public partial class WindowSklad : Window
     {
         protected DB.Registrants registrants;
@@ -57,9 +45,8 @@ namespace РегистрантКПП.Sklad
             new_driver.Visibility = Visibility.Hidden;
             Driver_Info.Visibility = Visibility.Visible;
 
-
-            var current_driver = Drivers.SelectedItem as DriverV;
-            Driver_Info.DataContext = current_driver;
+            var currentDriver = Drivers.SelectedItem as DriverV;
+            Driver_Info.DataContext = currentDriver;
      
                 if (tb_TimeArrive.Text != "")
                 {
@@ -94,8 +81,7 @@ namespace РегистрантКПП.Sklad
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 50;
+            BlurEffect effect = new BlurEffect {Radius = 50};
             MainGrid.Effect = effect;
 
             MessageBoxResult result = MessageBox.Show("Вы действительно хотите обновить данные?","Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -103,15 +89,19 @@ namespace РегистрантКПП.Sklad
             {
                 try
                 {
-                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    driv.FirstName = tb_firstname.Text;
-                    driv.SecondName = tb_secondname.Text;
-                    driv.Phone = tb_phone.Text;
-                    driv.Info = tb_info.Text + "\n" + DateTime.Now + " внесены изменения";
-
-                    ef.SaveChanges();
-                    ef.Dispose();
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var driver = ef.Registrants.FirstOrDefault(x => x.Id.ToString() == tb_id.Text);
+                        if (driver != null)
+                        {
+                            driver.FirstName = tb_firstname.Text;
+                            driver.SecondName = tb_secondname.Text;
+                            driver.Phone = tb_phone.Text;
+                            driver.Info = tb_info.Text + "\n" + DateTime.Now + " внесены изменения";
+                            
+                            ef.SaveChanges();
+                        }
+                    }
                     Refresh();
 
                     MessageBox.Show("Данные успешно обновлены", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -128,8 +118,7 @@ namespace РегистрантКПП.Sklad
 
         private void btn_delete_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 50;
+            BlurEffect effect = new BlurEffect {Radius = 50};
             MainGrid.Effect = effect;
             
              MessageBoxResult result = MessageBox.Show("Вы действительно ходите удалить карточку №" + tb_id.Text + " на имя " + tb_firstname.Text + " " + tb_secondname.Text, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Information);
@@ -137,12 +126,17 @@ namespace РегистрантКПП.Sklad
             {
                 try
                 {
-                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    driv.Deleted = "D";
-                    driv.Info = tb_info.Text + "\n" + DateTime.Now + " карточка удалена";
-                    ef.SaveChanges();
-                    ef.Dispose();
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var driver = ef.Registrants.FirstOrDefault(x => x.Id.ToString() == tb_id.Text);
+                        if (driver != null)
+                        {
+                            driver.Deleted = "D";
+                            driver.Info = tb_info.Text + "\n" + DateTime.Now + " карточка удалена";
+                            
+                            ef.SaveChanges();
+                        }
+                    }
                     Refresh();
                     Driver_Info.Visibility = Visibility.Hidden;
 
@@ -160,8 +154,7 @@ namespace РегистрантКПП.Sklad
 
         private void btn_done_TimeArrive_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 50;
+            BlurEffect effect = new BlurEffect {Radius = 50};
             MainGrid.Effect = effect;
 
             MessageBoxResult result = MessageBox.Show("Вы действительно хотите обнвить статус водителя " + tb_firstname.Text + " " + tb_secondname.Text + " на ПРИБЫЛ?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -169,11 +162,15 @@ namespace РегистрантКПП.Sklad
             {
                 try
                 {
-                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    driv.TimeArrive = DateTime.Now;
-                    ef.SaveChanges();
-                    ef.Dispose();
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var driver = ef.Registrants.FirstOrDefault(x => x.Id.ToString() == tb_id.Text);
+                        if (driver != null)
+                        {
+                            driver.TimeArrive = DateTime.Now;
+                            ef.SaveChanges();
+                        }
+                    }
                     Refresh();
                     btn_done_TimeArrive.Visibility = Visibility.Hidden;
 
@@ -190,8 +187,7 @@ namespace РегистрантКПП.Sklad
 
         private void btn_done_timeLeft_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 50;
+            BlurEffect effect = new BlurEffect {Radius = 50};
             MainGrid.Effect = effect;
 
             MessageBoxResult result = MessageBox.Show("Вы действительно хотите обнвить статус водителя " + tb_firstname.Text + " " + tb_secondname.Text + " на ПОКИНУЛ?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -199,12 +195,15 @@ namespace РегистрантКПП.Sklad
             {
                 try
                 {
-                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    driv.TimeLeft = DateTime.Now;
-
-                    ef.SaveChanges();
-                    ef.Dispose();
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var driver = ef.Registrants.FirstOrDefault(x => x.Id.ToString() == tb_id.Text);
+                        if (driver != null)
+                        {
+                            driver.TimeLeft = DateTime.Now;
+                        }
+                        ef.SaveChanges();
+                    }
                     Refresh();
 
                     btn_done_TimeArrive.Visibility = Visibility.Hidden;
@@ -223,8 +222,7 @@ namespace РегистрантКПП.Sklad
 
         private void btn_regist_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 20;
+            BlurEffect effect = new BlurEffect {Radius = 20};
             MainGrid.Effect = effect;
 
             if (tbx_FirstName.Text == "" && tb_secondname.Text == "" && tbx_Phone.Text == "")
@@ -238,19 +236,23 @@ namespace РегистрантКПП.Sklad
                 {
                     try
                     {
-                        DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                        registrants = new DB.Registrants();
+                        using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                        {
+                            registrants = new DB.Registrants
+                            {
+                                FirstName = tbx_FirstName.Text,
+                                SecondName = tbx_secondname.Text,
+                                Phone = tbx_Phone.Text,
+                                DateTime = DateTime.Now,
+                                Info = tbx_info.Text
+                            };
+                            ef.Registrants.Add(registrants);
+                            ef.SaveChanges();
+                            MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                            tbx_FirstName.Text = tbx_secondname.Text = tbx_Phone.Text = tbx_info.Text = "";
+                        }
 
-                        registrants.FirstName = tbx_FirstName.Text;
-                        registrants.SecondName = tbx_secondname.Text;
-                        registrants.Phone = tbx_Phone.Text;
-                        registrants.DateTime = DateTime.Now;
-                        registrants.Info = tbx_info.Text;
-                        ef.Registrants.Add(registrants);
-                        ef.SaveChanges();
-                        MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
-                        tbx_FirstName.Text = ""; tbx_secondname.Text = ""; tbx_Phone.Text = ""; tbx_info.Text = "";
-                        ef.Dispose();
                         Refresh();
                     }
                     catch (Exception)
@@ -285,7 +287,6 @@ namespace РегистрантКПП.Sklad
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 Drivers.ItemsSource = null;
@@ -294,10 +295,7 @@ namespace РегистрантКПП.Sklad
                 var data = driver.driverVs.Where(t => t.SecondName.ToUpper().StartsWith(tb_search.Text.ToUpper())).ToList();
                 var sDOP = driver.driverVs.Where(t => t.SecondName.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
                 data.AddRange(sDOP);
-
-                // data.Distinct().ToArray();
-                var noDupes = data.Distinct().ToList();
-                Drivers.ItemsSource = noDupes;
+                Drivers.ItemsSource = data.Distinct().ToList();
             }
             catch (Exception)
             {
