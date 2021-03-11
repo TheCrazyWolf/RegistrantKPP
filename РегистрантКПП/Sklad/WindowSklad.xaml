@@ -37,7 +37,7 @@
                             <TextBlock x:Name="lb_DateTime" Text="{Binding DateTime}" Grid.Column="3" Margin="5" VerticalAlignment="Center"/>
                             <TextBlock x:Name="lb_status" Text="{Binding Status}" Grid.Column="4" Margin="5" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
-                            <TextBlock x:Name="lb_info" Text="{Binding Info}" Visibility="Hidden"/>
+                            <TextBlock x:Name="lb_info" Text="{Binding Info}" Visibility="Collapsed"/>
                             <TextBlock x:Name="lb_TimeArrive" Text="{Binding TimeArrive}" Visibility="Hidden"/>
                             <TextBlock x:Name="lb_TimeLeft" Text="{Binding TimeLeft}" Visibility="Hidden"/>
                         </Grid>

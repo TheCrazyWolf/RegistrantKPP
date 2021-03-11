@@ -291,8 +291,10 @@ namespace РегистрантКПП.Sklad
             var data = driver.driverVs.Where(t => t.SecondName.ToUpper().StartsWith(tb_search.Text.ToUpper())).ToList();
             var sDOP = driver.driverVs.Where(t => t.SecondName.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
             data.AddRange(sDOP);
-            data.Distinct();
-            Drivers.ItemsSource = data;
+            
+            // data.Distinct().ToArray();
+            var noDupes = data.Distinct().ToList();
+            Drivers.ItemsSource = noDupes;
         }
     }
 }
