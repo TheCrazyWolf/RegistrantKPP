@@ -1,27 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Configuration;
 using System.Threading;
 
-
-
 namespace РегистрантКПП
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -39,28 +23,26 @@ namespace РегистрантКПП
             tb_lastlogin.Text = Registrant.Default.LastLogin;
             tb_lastpassword.Password = Registrant.Default.LastPassword;
 
-
             Thread thread = new Thread(new ThreadStart(TestConnect));
             thread.Start();
         }
 
         private void CheckDay()
         {
-            double x = Convert.ToDouble(DateTime.Now.Hour);
-            if (x > 6.0 && x < 12.0)
+            double x = DateTime.Now.Hour;
+            if (x > 6 && x < 12)
             {
                 tb_welcome.Text = "Доброе утро";
             }
-            else if (x >= 12.0 && x < 15.0)
+            else if (x >= 12 && x < 15)
             {
                 tb_welcome.Text = "Добрый день";
             }
-            else if (x >= 15.0 && x < 21.0)
+            else if (x >= 15 && x < 21)
             {
                 tb_welcome.Text = "Добрый вечер";
             }
-
-            else if (x >= 21.0)
+            else if (x >= 21)
             {
                 tb_welcome.Text = "Доброй ночи";
             }
@@ -72,15 +54,16 @@ namespace РегистрантКПП
             {
                 Dispatcher.Invoke(() => GridWait.Visibility = Visibility.Visible);
 
-                DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                var test = ef.Registrants.ToList();
-                ef.Dispose();
+                using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                {
+                    var test = ef.Registrants.ToList();
+                }
 
                 Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Visible);
                 Dispatcher.Invoke(() => GridError.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GridWait.Visibility = Visibility.Hidden);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GridWait.Visibility = Visibility.Hidden);
@@ -119,7 +102,7 @@ namespace РегистрантКПП
             {
                 KPP.WindowKPP window = new KPP.WindowKPP();
                 window.Show();
-                this.Close();
+                Close();
 
                 Registrant.Default.LastLogin = tb_lastlogin.Text;
                 Registrant.Default.LastPassword = tb_lastpassword.Password;
@@ -129,7 +112,7 @@ namespace РегистрантКПП
             {
                 Sklad.WindowSklad window = new Sklad.WindowSklad();
                 window.Show();
-                this.Close();
+                Close();
 
                 Registrant.Default.LastLogin = tb_lastlogin.Text;
                 Registrant.Default.LastPassword = tb_lastpassword.Password;

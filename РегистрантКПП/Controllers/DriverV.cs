@@ -8,7 +8,6 @@
         public string DateTime { get; set; }
         public string Phone { get; set; }
         public string Info { get; set; }
-        
 
         public string btn_Arrive { get; set; }
         public string btn_Left { get; set; }
