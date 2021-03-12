@@ -34,6 +34,10 @@ namespace РегистрантКПП
             tb_bdlogin.Text = Registrant.Default.LOGIN;
             tb_bdpass.Text = Registrant.Default.PASSWORD;
 
+            tb_lastlogin.Text = Registrant.Default.LastLogin;
+            tb_lastpassword.Password = Registrant.Default.LastPassword;
+
+
             Thread thread = new Thread(new ThreadStart(TestConnect));
             thread.Start();
         }
@@ -56,18 +60,6 @@ namespace РегистрантКПП
             }
         }
 
-
-        private void btn_kpp_Click(object sender, RoutedEventArgs e)
-        {
-            KPP.WindowKPP windowKPP = new KPP.WindowKPP();
-            windowKPP.Show();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Sklad.WindowSklad windowSklad = new Sklad.WindowSklad();
-            windowSklad.Show();
-        }
 
         private void btn_save_settings_Click(object sender, RoutedEventArgs e)
         {
@@ -93,16 +85,29 @@ namespace РегистрантКПП
             GridError.Visibility = Visibility.Hidden;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void btn_enter_Click(object sender, RoutedEventArgs e)
         {
-            Sklad.WindowSklad windowSklad = new Sklad.WindowSklad();
-            windowSklad.Show();
-        }
+            if (tb_lastlogin.Text == "кпп")
+            {
+                KPP.WindowKPP window = new KPP.WindowKPP();
+                window.Show();
+                this.Close();
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Hidden);
-            Dispatcher.Invoke(() => GridError.Visibility = Visibility.Visible);
+                Registrant.Default.LastLogin = tb_lastlogin.Text;
+                Registrant.Default.LastPassword = tb_lastpassword.Password;
+                Registrant.Default.Save();
+            }
+            else if (tb_lastlogin.Text == "админ" && tb_lastpassword.Password == "админ")
+            {
+                Sklad.WindowSklad window = new Sklad.WindowSklad();
+                window.Show();
+                this.Close();
+
+                Registrant.Default.LastLogin = tb_lastlogin.Text;
+                Registrant.Default.LastPassword = tb_lastpassword.Password;
+                Registrant.Default.Save();
+            }
+
         }
     }
 }

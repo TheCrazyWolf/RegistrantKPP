@@ -91,5 +91,29 @@ namespace РегистрантКПП {
                 this["PASSWORD"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastLogin {
+            get {
+                return ((string)(this["LastLogin"]));
+            }
+            set {
+                this["LastLogin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastPassword {
+            get {
+                return ((string)(this["LastPassword"]));
+            }
+            set {
+                this["LastPassword"] = value;
+            }
+        }
     }
 }

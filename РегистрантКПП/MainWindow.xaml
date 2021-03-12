@@ -12,10 +12,10 @@
         <Grid x:Name="GridAuth" Visibility="Hidden" Margin="0,0,-1,0" Height="526"  Width="390" fw:PointerTracker.Enabled="True" >
             <TextBlock TextWrapping="Wrap" Text="Авторизация" FontSize="25" FontWeight="Light" VerticalAlignment="Top" Height="38" Margin="42,159,44,0"/>
             <TextBlock TextWrapping="Wrap" Text="Логин" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,210,44,0"/>
-            <TextBox Style="{StaticResource TextBoxRevealStyle}"  Height="35" Margin="42,233,44,0" TextWrapping="Wrap" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="sdf" />
+            <TextBox x:Name="tb_lastlogin" Style="{StaticResource TextBoxRevealStyle}"  Height="35" Margin="42,233,44,0" TextWrapping="Wrap" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="sdf" />
             <TextBlock TextWrapping="Wrap" Text="Пароль" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,280,44,0"/>
-            <TextBox Style="{StaticResource TextBoxRevealStyle}"  Height="36" Margin="42,303,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="dfg"/>
-            <Button x:Name="btn_enter" Content="Вход" FontWeight="Light" HorizontalAlignment="Left" Margin="42,355,0,0" FontSize="16" VerticalAlignment="Top" Width="99" Height="31" Style="{StaticResource ButtonRevealStyle}"/>
+            <PasswordBox x:Name="tb_lastpassword" Style="{StaticResource PasswordBoxRevealStyle}"  Height="36" Margin="42,303,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" />
+            <Button x:Name="btn_enter" Click="btn_enter_Click" Content="Вход" FontWeight="Light" HorizontalAlignment="Left" Margin="42,355,0,0" FontSize="16" VerticalAlignment="Top" Width="99" Height="31" Style="{StaticResource ButtonRevealStyle}"/>
             <Image HorizontalAlignment="Left" Height="74" Margin="36,0,0,389" Source="source/WareHouse.png" VerticalAlignment="Bottom" Width="74"/>
             <TextBlock TextWrapping="Wrap" FontWeight="Light" VerticalAlignment="Top" Height="43" Margin="42,455,44,0"><Run Text="РегистрантКПП"/><Run Text=" - "/><Run Text="ver. 1.0 (Release)"/><LineBreak/><Run Text="Разработка Алекей Кулагин"/></TextBlock>
         </Grid>
@@ -37,8 +37,6 @@
             <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="44" Margin="42,140,44,0"><Run Text="Пшш.. Хьюстон у нас проблемы..  "/><LineBreak/><Run Text="Давайте попробуем исправить"/></TextBlock>
             <Button x:Name="btn_save_settings" Click="btn_save_settings_Click" Content="Сохранить данные и повторить" FontWeight="Light"  HorizontalAlignment="Left" Margin="42,544,0,0" FontSize="16" VerticalAlignment="Top" Width="304" Height="31" Style="{StaticResource ButtonAccentRevealStyle}" Foreground="White"/>
         </Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="144,193,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="144,309,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
         <Grid x:Name="GridRestart" Visibility="Hidden"
             fw:PointerTracker.Enabled="True" Width="390"  Height="787"  >
             <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="25" FontWeight="Light" VerticalAlignment="Top" Height="40" Margin="23,395,24,0" Text="Перезапусти приложение"/>
