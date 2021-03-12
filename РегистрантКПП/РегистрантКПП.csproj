@@ -181,6 +181,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="source\plug.png" />
     <Resource Include="source\PoopEmoji.png" />
     <Content Include="DB\Registrant.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

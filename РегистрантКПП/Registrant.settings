@@ -6,7 +6,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="IP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">127.0.0.1</Value>
+      <Value Profile="(Default)">DESKTOP-ALEX\SQLEXPRESS</Value>
     </Setting>
     <Setting Name="PORT" Type="System.String" Scope="User">
       <Value Profile="(Default)">1433</Value>
