@@ -43,7 +43,7 @@ namespace РегистрантКПП
             try
             {
                 DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                ef.Database.Exists();
+                var test = ef.Registrants.ToList();
                 ef.Dispose();
 
                 Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Visible);
