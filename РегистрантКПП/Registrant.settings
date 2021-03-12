@@ -6,7 +6,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="IP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">localhost</Value>
+      <Value Profile="(Default)">127.0.0.1</Value>
     </Setting>
     <Setting Name="PORT" Type="System.String" Scope="User">
       <Value Profile="(Default)">1433</Value>
@@ -20,11 +20,11 @@
     <Setting Name="PASSWORD" Type="System.String" Scope="User">
       <Value Profile="(Default)">1234</Value>
     </Setting>
-    <Setting Name="OriginalConnString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&amp;quot;data source=127.0.0.1;initial catalog=Registrant;user id=Test;password=1234;MultipleActiveResultSets=True;App=EntityFramework&amp;quot;</Value>
+    <Setting Name="LastLogin" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="CurrentConnString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&amp;quot;data source=127.0.0.1;initial catalog=Registrant;user id=Test;password=1234;MultipleActiveResultSets=True;App=EntityFramework&amp;quot;</Value>
+    <Setting Name="LastPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

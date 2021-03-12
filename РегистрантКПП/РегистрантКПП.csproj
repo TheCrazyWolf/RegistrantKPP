@@ -71,20 +71,26 @@
     <Compile Include="Controllers\ChatV.cs" />
     <Compile Include="Controllers\Driver.cs" />
     <Compile Include="Controllers\DriverV.cs" />
-    <Compile Include="DB\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+    <Compile Include="DB\Chat.cs">
+      <DependentUpon>Registrant.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\Model1.cs">
+    <Compile Include="DB\Registrant.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Registrant.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\Model1.Designer.cs">
+    <Compile Include="DB\Registrant.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>Registrant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Registrant.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Registrant.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Registrants.cs">
+      <DependentUpon>Registrant.tt</DependentUpon>
     </Compile>
     <Compile Include="Sklad\Driver.cs" />
     <Compile Include="Sklad\DriverV.cs" />
@@ -113,27 +119,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DB\Chat.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Registrant.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Registrant.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Registrant.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Registrant.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Registrant.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Registrant.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Registrants.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -170,13 +155,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Registrant.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="DB\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DB\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </None>
     <None Include="DB\Registrant.edmx.diagram">
       <DependentUpon>Registrant.edmx</DependentUpon>
     </None>
@@ -194,26 +172,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DB\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DB\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
-    <Content Include="DB\Registrant.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Registrant.Context.cs</LastGenOutput>
-      <DependentUpon>Registrant.edmx</DependentUpon>
-    </Content>
-    <Content Include="DB\Registrant.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Registrant.edmx</DependentUpon>
-      <LastGenOutput>Registrant.cs</LastGenOutput>
-    </Content>
     <Resource Include="source\Disappointed.png" />
     <Resource Include="source\Load.gif" />
     <Resource Include="source\WareHouse.png" />
@@ -222,6 +180,20 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="source\PoopEmoji.png" />
+    <Content Include="DB\Registrant.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Registrant.edmx</DependentUpon>
+      <LastGenOutput>Registrant.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DB\Registrant.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Registrant.edmx</DependentUpon>
+      <LastGenOutput>Registrant.cs</LastGenOutput>
+    </Content>
+    <Resource Include="source\ico.ico" />
+    <Resource Include="source\SplashScreen.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

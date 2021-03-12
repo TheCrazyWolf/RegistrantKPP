@@ -34,9 +34,9 @@ namespace РегистрантКПП
             tb_bdlogin.Text = Registrant.Default.LOGIN;
             tb_bdpass.Text = Registrant.Default.PASSWORD;
 
-            var connect = @"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=" + tb_ip.Text + ", " + tb_port.Text + ";initial catalog=" + tb_bdname.Text + ";persist security info=True;user id=" + tb_bdlogin.Text + ";password=" + tb_bdpass.Text + ";integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;";
+            tb_lastlogin.Text = Registrant.Default.LastLogin;
+            tb_lastpassword.Password = Registrant.Default.LastPassword;
 
-            MessageBox.Show(connect);
 
             Thread thread = new Thread(new ThreadStart(TestConnect));
             thread.Start();
@@ -47,7 +47,7 @@ namespace РегистрантКПП
             try
             {
                 DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                ef.Database.Exists();
+                var test = ef.Registrants.ToList();
                 ef.Dispose();
 
                 Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Visible);
@@ -55,24 +55,11 @@ namespace РегистрантКПП
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
                 Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GridError.Visibility = Visibility.Visible);
             }
         }
 
-
-        private void btn_kpp_Click(object sender, RoutedEventArgs e)
-        {
-            KPP.WindowKPP windowKPP = new KPP.WindowKPP();
-            windowKPP.Show();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Sklad.WindowSklad windowSklad = new Sklad.WindowSklad();
-            windowSklad.Show();
-        }
 
         private void btn_save_settings_Click(object sender, RoutedEventArgs e)
         {
@@ -86,25 +73,41 @@ namespace РегистрантКПП
             //var connect = @"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=" + tb_ip.Text + ", " + tb_port.Text + ";initial catalog=" + tb_bdname.Text + ";persist security info=True;user id=" + tb_bdlogin.Text + ";password=" + tb_bdpass.Text + ";integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;";
             //string connect = "metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=" + tb_ip.Text + "," + tb_port.Text + ";initial catalog=" + tb_bdname.Text + ";user id=" + tb_bdlogin.Text + ";password=" + tb_bdpass.Text + ";MultipleActiveResultSets=True;App=EntityFramework&quot;";
 
-            var connect = @"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=" + tb_ip.Text + ", " + tb_port.Text + ";initial catalog=" + tb_bdname.Text + ";user id=" + tb_bdlogin.Text + ";password=" + tb_bdpass.Text + ";MultipleActiveResultSets=True;App=EntityFramework&quot;";
+            //var connect = @"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=""data source=" + tb_ip.Text + ", " + tb_port.Text + ";initial catalog=" + tb_bdname.Text + ";user id=" + tb_bdlogin.Text + ";password=" + tb_bdpass.Text + ";MultipleActiveResultSets=True;App=EntityFramework";
+            
+            var connect = $"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=\"data source={tb_ip.Text},{tb_port.Text};initial catalog={tb_bdname.Text};user id={tb_bdlogin.Text};password={tb_bdpass.Text};MultipleActiveResultSets=True;App=EntityFramework\";";
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.ConnectionStrings.ConnectionStrings["RegistrantEntities"].ConnectionString = connect;
             config.Save(ConfigurationSaveMode.Modified, true);
             ConfigurationManager.RefreshSection("connectionStrings");
 
-            TestConnect();
+            GridRestart.Visibility = Visibility.Visible;
+            GridError.Visibility = Visibility.Hidden;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void btn_enter_Click(object sender, RoutedEventArgs e)
         {
-            Sklad.WindowSklad windowSklad = new Sklad.WindowSklad();
-            windowSklad.Show();
-        }
+            if (tb_lastlogin.Text == "кпп")
+            {
+                KPP.WindowKPP window = new KPP.WindowKPP();
+                window.Show();
+                this.Close();
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Hidden);
-            Dispatcher.Invoke(() => GridError.Visibility = Visibility.Visible);
+                Registrant.Default.LastLogin = tb_lastlogin.Text;
+                Registrant.Default.LastPassword = tb_lastpassword.Password;
+                Registrant.Default.Save();
+            }
+            else if (tb_lastlogin.Text == "админ" && tb_lastpassword.Password == "админ")
+            {
+                Sklad.WindowSklad window = new Sklad.WindowSklad();
+                window.Show();
+                this.Close();
+
+                Registrant.Default.LastLogin = tb_lastlogin.Text;
+                Registrant.Default.LastPassword = tb_lastpassword.Password;
+                Registrant.Default.Save();
+            }
+
         }
     }
 }

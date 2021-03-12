@@ -34,7 +34,7 @@ namespace РегистрантКПП {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
         public string IP {
             get {
                 return ((string)(this["IP"]));
@@ -94,25 +94,25 @@ namespace РегистрантКПП {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=127.0.0.1;initial catalog=Registrant;user id=Test;password=1234;MultipleActiveResultSets=True;App=EntityFramework&quot;")]
-        public string OriginalConnString {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastLogin {
             get {
-                return ((string)(this["OriginalConnString"]));
+                return ((string)(this["LastLogin"]));
             }
             set {
-                this["OriginalConnString"] = value;
+                this["LastLogin"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=127.0.0.1;initial catalog=Registrant;user id=Test;password=1234;MultipleActiveResultSets=True;App=EntityFramework&quot;")]
-        public string CurrentConnString {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastPassword {
             get {
-                return ((string)(this["CurrentConnString"]));
+                return ((string)(this["LastPassword"]));
             }
             set {
-                this["CurrentConnString"] = value;
+                this["LastPassword"] = value;
             }
         }
     }
