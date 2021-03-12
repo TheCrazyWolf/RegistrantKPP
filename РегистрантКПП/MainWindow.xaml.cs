@@ -28,6 +28,8 @@ namespace РегистрантКПП
         {
             InitializeComponent();
 
+            CheckDay();
+
             tb_ip.Text = Registrant.Default.IP;
             tb_port.Text = Registrant.Default.PORT;
             tb_bdname.Text = Registrant.Default.DB;
@@ -42,20 +44,46 @@ namespace РегистрантКПП
             thread.Start();
         }
 
+        private void CheckDay()
+        {
+            double x = Convert.ToDouble(DateTime.Now.Hour);
+            if (x > 6.0 && x < 12.0)
+            {
+                tb_welcome.Text = "Доброе утро";
+            }
+            else if (x >= 12.0 && x < 15.0)
+            {
+                tb_welcome.Text = "Добрый день";
+            }
+            else if (x >= 15.0 && x < 21.0)
+            {
+                tb_welcome.Text = "Добрый вечер";
+            }
+
+            else if (x >= 21.0)
+            {
+                tb_welcome.Text = "Доброй ночи";
+            }
+        }
+
         void TestConnect()
         {
             try
             {
+                Dispatcher.Invoke(() => GridWait.Visibility = Visibility.Visible);
+
                 DB.RegistrantEntities ef = new DB.RegistrantEntities();
                 var test = ef.Registrants.ToList();
                 ef.Dispose();
 
                 Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Visible);
                 Dispatcher.Invoke(() => GridError.Visibility = Visibility.Hidden);
+                Dispatcher.Invoke(() => GridWait.Visibility = Visibility.Hidden);
             }
             catch (Exception ex)
             {
                 Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Hidden);
+                Dispatcher.Invoke(() => GridWait.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GridError.Visibility = Visibility.Visible);
             }
         }

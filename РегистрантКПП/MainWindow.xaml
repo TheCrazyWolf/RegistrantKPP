@@ -6,9 +6,8 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         xmlns:local="clr-namespace:РегистрантКПП"
         mc:Ignorable="d"
-        Title="Авторизация" Height="899.5" Width="1898.9" MinHeight="555.5" MinWidth="396.9" fw:AcrylicWindow.Enabled="True" WindowState="Maximized" Icon="source/ico.ico" >
+        Title="Авторизация" Height="674.5" Width="200.9" MinHeight="555.5" MinWidth="396.9" fw:AcrylicWindow.Enabled="True" WindowState="Maximized" Icon="/source/ico.ico" >
     <Grid>
-
         <Grid x:Name="GridAuth" Visibility="Hidden" Margin="0,0,-1,0" Height="526"  Width="390" fw:PointerTracker.Enabled="True" >
             <TextBlock TextWrapping="Wrap" Text="Авторизация" FontSize="25" FontWeight="Light" VerticalAlignment="Top" Height="38" Margin="42,159,44,0"/>
             <TextBlock TextWrapping="Wrap" Text="Логин" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,210,44,0"/>
@@ -42,6 +41,11 @@
             <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="25" FontWeight="Light" VerticalAlignment="Top" Height="40" Margin="23,395,24,0" Text="Перезапусти приложение"/>
             <Image HorizontalAlignment="Left" Height="85" Margin="162,310,0,0" VerticalAlignment="Top" Width="69" Source="source/PoopEmoji.png" />
             <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="138" Margin="45,440,41,0"><Run Text="Я обновил настройки подключения, теперь, чтобы изменения вступили в силу, закрой"/><Run Text=" окошко и открой снова!"/><LineBreak/><Run/><LineBreak/><Run Text="Если, что то пойдет не так, вновь откроется окно ввода данных для подключения"/></TextBlock>
+        </Grid>
+        <Grid x:Name="GridWait" Visibility="Visible" Margin="0,58.5,-1,58.5" Height="526"  Width="390" fw:PointerTracker.Enabled="True" >
+            <TextBlock x:Name="tb_welcome" TextWrapping="Wrap" FontSize="25" FontWeight="Light" VerticalAlignment="Top" TextAlignment="Center" Height="45" Margin="45,256,41,0" Text="Доброе утро"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="64" Margin="45,317,41,0" Text="Подождите немного, пока мы подключимся к серверу"/>
+            <Image HorizontalAlignment="Left" Height="74" Margin="153,0,0,349" Source="source/plug.png" VerticalAlignment="Bottom" Width="74"/>
         </Grid>
     </Grid>
 </Window>

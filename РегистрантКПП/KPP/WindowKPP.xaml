@@ -3,22 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         xmlns:local="clr-namespace:РегистрантКПП.KPP"
         mc:Ignorable="d"
-        Title="РегистрантКПП  - Режим КПП" Height="452" Width="927" WindowState="Maximized" MinHeight="677" MinWidth="1440" >
+        Title="РегистрантКПП  - Режим КПП" Height="412" Width="752" WindowState="Maximized" MinHeight="720" MinWidth="1280" fw:AcrylicWindow.Enabled="True" fw:PointerTracker.Enabled="True" Icon="/source/ico.ico" >
     <Grid x:Name="MainGrid">
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="937*"/>
-            <ColumnDefinition Width="495*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Height="69" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="20,20,20,0" >
-            <Grid.Background>
-                <ImageBrush ImageSource="/source/walls.jpg" Stretch="UniformToFill"/>
-            </Grid.Background>
-            <TextBlock  Margin="100,10,524,10" FontSize="32" FontWeight="Light" TextWrapping="Wrap" Text="Регистрация и учет водителей" VerticalAlignment="Center"  Height="49" Foreground="White"/>
-        </Grid>
-        <Grid HorizontalAlignment="Left" Height="414" Margin="994,179,-1067,0" VerticalAlignment="Top" Width="568" Grid.Column="1">
+        <Grid  Height="414" Visibility="Hidden" VerticalAlignment="Top" Margin="352,0,340,0">
             <TextBox x:Name="tb_enterchat" KeyDown="tb_enterchat_KeyDown"  Height="26" Margin="105,361,0,-130" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="414"/>
             <ListBox  x:Name="lb_chat" Height="281" Margin="105,43,0,-67" VerticalAlignment="Top" HorizontalAlignment="Left" Width="414">
                 <ListBox.ItemTemplate>
@@ -40,89 +33,52 @@
             <TextBlock Margin="105,-8,0,0" TextWrapping="Wrap" Text="Возникли вопросы?" FontSize="25" VerticalAlignment="Top" Height="40" HorizontalAlignment="Left" Width="414"/>
             <TextBlock Margin="105,329,0,-88" TextWrapping="Wrap" Text="Ваше сообщение:" VerticalAlignment="Top" Height="16" HorizontalAlignment="Left" Width="414"/>
         </Grid>
-        <Grid Margin="0,97,56,10" RenderTransformOrigin="0.13,-0.11" Grid.Column="1">
-            <GroupBox Header="Персональные данные водитея" FontSize="14" Margin="10,96,10,0" Height="188" VerticalAlignment="Top">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="tb_FirstName" FontSize="25" Height="40" Margin="10,41,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                    <TextBox x:Name="tb_secondname" FontSize="25" Height="40" Margin="10,114,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                    <TextBlock Margin="10,17,57,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top"/>
-                    <TextBlock Margin="10,90,57,0" TextWrapping="Wrap" Text="Фамилия" VerticalAlignment="Top"/>
+        <Grid Margin="1007,40,10,10"  Width="255"  >
 
-                </Grid>
-            </GroupBox>
-            <TextBlock Margin="10,43,10,0" TextWrapping="Wrap" FontWeight="Light" FontSize="29" Foreground="#FF155C97" Height="48" VerticalAlignment="Top" Text="Новый водитель"/>
-            <GroupBox Header="Номер телефона" FontSize="15" Margin="10,289,10,0" Height="91" VerticalAlignment="Top">
-                <Grid Margin="0,0,0,-8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="tb_Phone" FontSize="25" Height="40" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBox x:Name="tb_FirstName"  Height="35" Margin="10,139,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+            <TextBox x:Name="tb_secondname" Height="35" Margin="10,212,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}"/>
+            <TextBlock Margin="10,115,57,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
+            <TextBlock Margin="10,188,57,0" TextWrapping="Wrap" Text="Фамилия" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
 
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Дополнительно (необяз)" FontSize="14" Margin="10,385,10,0" Height="85" VerticalAlignment="Top">
-                <Grid>
-                    <TextBox x:Name="tb_info" Height="40" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-
-                </Grid>
-            </GroupBox>
-            <Button Click="Button_Click_1" Content="Зарегистрировать" Margin="111,487,99,0" RenderTransformOrigin="0.5,0.5" Foreground="White" Background="#FF2B6CBB" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Top">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-0.053"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
+            <TextBlock Margin="10,55,10,0" TextWrapping="Wrap" FontWeight="Light" FontSize="29" Foreground="#FF155C97" Height="48" VerticalAlignment="Top" Text="Новый водитель"/>
+            <Button Click="Button_Click_1" Style="{StaticResource ButtonRevealStyle}" Content="Зарегистрировать" Margin="10,491,10,0" FontWeight="Light" FontSize="15" Height="37" VerticalAlignment="Top">
             </Button>
+            <TextBox x:Name="tb_Phone" Height="35" Margin="10,287,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}"/>
+            <TextBox x:Name="tb_info" Height="108" Margin="10,369,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="12" Style="{StaticResource TextBoxRevealStyle}"/>
+            <TextBlock Margin="10,263,57,0" TextWrapping="Wrap" Text="Номер телефона" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
+            <TextBlock Margin="10,345,10,0" TextWrapping="Wrap" Text="Необязательная дополнительна инф" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
         </Grid>
-        <Grid Margin="121,97,10,-7" RenderTransformOrigin="0.13,-0.11">
-            <TextBlock Margin="0,10,20,0" TextWrapping="Wrap" Text="Учет зарегистрированных водителей" FontSize="29" FontWeight="Light" VerticalAlignment="Top"  Height="42" Foreground="#FF155C97"/>
-            <ListBox x:Name="Drivers" Margin="-11,96,10,43" BorderBrush="{x:Null}" >
+        <Grid Margin="21,20,275,30" Width="976"  >
+            <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" Text="Журнал зарегистрированных водителей" FontSize="29" FontWeight="Light" VerticalAlignment="Top"  Height="42" Foreground="#FF155C97"/>
+            <ListBox x:Name="Drivers" Margin="0,57,10,10" BorderBrush="{x:Null}" Background="{x:Null}" Style="{StaticResource ListBoxRevealStyle}" >
+
+
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
+
+                    <DataTemplate >
                         <Grid >
                             <Grid.ColumnDefinitions >
                                 <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding Id}" Visibility="Hidden" />
-                            <TextBlock Text="{Binding SecondName}" Grid.Column="0" Padding="5" VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding FirstName}" Grid.Column="1" Padding="5" VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding DateTime}" Grid.Column="2" Margin="5" VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding Phone}" Grid.Column="3" Margin="5" VerticalAlignment="Center"/>
-                            <Button x:Name="btn_Arrive" Margin="2"  Content="Изменить статус: &#10; Прибыл на склад" Grid.Column="4" Visibility="{Binding btn_Arrive}" Click="btn_Arrive_Click" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding SecondName}" Grid.Column="0" Padding="5" VerticalAlignment="Center" FontWeight="Light" FontSize="14" />
+                            <TextBlock Text="{Binding FirstName}" Grid.Column="1" Padding="5" VerticalAlignment="Center" FontWeight="Light" FontSize="14" />
+                            <TextBlock Text="{Binding DateTime}" Grid.Column="2" Margin="5" VerticalAlignment="Center" FontWeight="Light" FontSize="14" />
+                            <TextBlock Text="{Binding Phone}" Grid.Column="3" Margin="5" VerticalAlignment="Center" FontWeight="Light" FontSize="14"/>
+                            <TextBlock Text="{Binding Info}"  Grid.Column="4" Margin="5" VerticalAlignment="Center" ToolTip="{Binding Info}" FontWeight="Light" FontSize="14"/>
+                            <Button x:Name="btn_Arrive" Margin="2"  Content="Изменить статус: &#10; Прибыл на склад" Grid.Column="5" Visibility="{Binding btn_Arrive}" Click="btn_Arrive_Click" VerticalAlignment="Center" FontWeight="Light" FontSize="14" Style="{StaticResource ButtonRevealStyle}">
                             </Button>
-                            <Button x:Name="btn_Left" Margin="2" Content="Изменить статус: &#10; Покинул склад" Grid.Column="4" Visibility="{Binding btn_Left}" Click="btn_Left_Click" VerticalAlignment="Center" >
+                            <Button x:Name="btn_Left" Margin="2" Content="Изменить статус: &#10; Покинул склад" Grid.Column="5" Visibility="{Binding btn_Left}" Click="btn_Left_Click" VerticalAlignment="Center" FontWeight="Light" FontSize="14" Style="{StaticResource ButtonRevealStyle}" >
                             </Button>
 
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox x:Name="Drivers_Copy" Margin="-11,57,10,0" BorderBrush="{x:Null}" Height="34" VerticalAlignment="Top">
-                <Grid >
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="150"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="ID" Visibility="Hidden" />
-                    <TextBlock Text="Фамилия" Grid.Column="0" Padding="5"/>
-                    <TextBlock Text="Имя" Grid.Column="1" Padding="5"/>
-                    <TextBlock Text="Время регистрации" Grid.Column="2" Margin="5"/>
-                    <TextBlock Text="Телефон" Grid.Column="3" Margin="5"/>
-                    <TextBlock Text="Действие" Grid.Column="4" Margin="5"/>
-                </Grid>
             </ListBox>
         </Grid>
 
