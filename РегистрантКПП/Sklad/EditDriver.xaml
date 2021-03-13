@@ -1,0 +1,36 @@
+﻿<Window x:Class="РегистрантКПП.Sklad.EditDriver"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:РегистрантКПП.Sklad"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        Title="EditDriver" Height="549" Width="363.271"  MinHeight="539" MinWidth="363" fw:AcrylicWindow.Enabled="True" fw:PointerTracker.Enabled="True" Icon="/source/ico.ico" WindowStartupLocation="CenterScreen" >
+    <Grid  >
+        <ScrollViewer>
+            <Grid Height="763">
+                <TextBlock Margin="23,59,35,0" TextWrapping="Wrap" Text="Обновление данных" FontSize="30" FontWeight="Light" VerticalAlignment="Top"  Height="48" Foreground="#FF155C97"/>
+                <TextBox x:Name="tb_id" IsEnabled="False" Height="35" Margin="23,136,24,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+                <TextBlock Margin="23,112,144,0" TextWrapping="Wrap" Text="Номер карточки" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
+                <TextBox x:Name="tb_firstname"  Height="35" Margin="23,214,24,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+                <TextBlock Margin="23,190,144,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
+                <TextBox x:Name="tb_secondname"  Height="35" Margin="23,278,24,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+                <TextBlock Margin="23,254,144,0" TextWrapping="Wrap" Text="Фамилия" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
+                <TextBox x:Name="tb_DateTime" IsEnabled="False" Height="35" Margin="23,512,24,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+                <TextBlock Margin="23,488,144,0" TextWrapping="Wrap" Text="Время регистрации" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
+                <TextBox x:Name="tb_info"  Height="47" Margin="23,416,24,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+                <TextBlock Margin="23,392,144,0" TextWrapping="Wrap" Text="Дополнительно" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
+                <TextBox x:Name="tb_TimeArrive" IsEnabled="False"  Height="35" Margin="23,576,24,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+                <TextBlock Margin="23,552,144,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="14" Text="Время прибытия"/>
+                <TextBox x:Name="tb_TimeLEft" IsEnabled="False"  Height="35" Margin="23,642,24,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+                <TextBlock Margin="23,618,144,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="14"><Run Text="Время убытия со склада"/><LineBreak/><Run Text=""/></TextBlock>
+                <Button Click="Button_Click" Style="{StaticResource ButtonRevealStyle}" Content="Обновить данные" FontWeight="Light" FontSize="15" Height="37" VerticalAlignment="Top" Margin="23,703,24,-13"/>
+                <TextBox x:Name="tb_phone"  Height="35" Margin="23,343,24,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
+                <TextBlock Margin="23,319,144,0" TextWrapping="Wrap" Text="Телефон" VerticalAlignment="Top" FontWeight="Light" FontSize="14"/>
+            </Grid>
+        </ScrollViewer>
+
+
+    </Grid>
+</Window>

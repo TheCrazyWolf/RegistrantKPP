@@ -115,5 +115,29 @@ namespace РегистрантКПП {
                 this["LastPassword"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AllowEditTime {
+            get {
+                return ((bool)(this["AllowEditTime"]));
+            }
+            set {
+                this["AllowEditTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LoadAll {
+            get {
+                return ((bool)(this["LoadAll"]));
+            }
+            set {
+                this["LoadAll"] = value;
+            }
+        }
     }
 }
