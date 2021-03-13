@@ -57,7 +57,7 @@ namespace РегистрантКПП.Sklad
                 temp.SecondName = tb_secondname.Text;
                 temp.Phone = tb_phone.Text;
 
-                var info2 = temp.Info + "\n-----" + tb_info.Text + "\n[I]" + DateTime.Now + "(" + Registrant.Default.LastLogin + ") изменил данные. (" + temp.FirstName + " " + temp.SecondName + ", " + temp.Phone + ")";
+                var info2 = temp.Info + "\n-----" + tb_info.Text + "\n[I]" + DateTime.Now + " (" + Registrant.Default.LastLogin + ") изменил данные. (" + temp.FirstName + " " + temp.SecondName + ", " + temp.Phone + ")";
                 temp.Info = info2;
 
                 ef.SaveChanges();

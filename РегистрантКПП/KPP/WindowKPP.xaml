@@ -6,33 +6,11 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         xmlns:local="clr-namespace:РегистрантКПП.KPP"
         mc:Ignorable="d"
-        Title="РегистрантКПП  - Режим КПП" Height="412" Width="752" WindowState="Maximized" MinHeight="720" MinWidth="1280" fw:AcrylicWindow.Enabled="True" fw:PointerTracker.Enabled="True" Icon="/source/ico.ico" >
+        Title="РегистрантКПП  - Режим КПП" Height="412" Width="752" WindowState="Maximized" MinHeight="720" MinWidth="1280" fw:AcrylicWindow.Enabled="True" fw:PointerTracker.Enabled="True" Icon="/source/ico.ico" Closed="Window_Closed" >
     <Grid x:Name="MainGrid" Background="#B2FFFFFF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid  Height="414" Visibility="Hidden" VerticalAlignment="Top" Margin="352,0,340,0">
-            <TextBox x:Name="tb_enterchat" KeyDown="tb_enterchat_KeyDown"  Height="26" Margin="105,361,0,-130" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="414"/>
-            <ListBox  x:Name="lb_chat" Height="281" Margin="105,43,0,-67" VerticalAlignment="Top" HorizontalAlignment="Left" Width="414">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Padding="5,0,0,0" Text="{Binding Id}" Visibility="Hidden"/>
-                            <TextBlock Text="{Binding Time}" Grid.Row="0"/>
-                            <TextBlock Text="{Binding NamePC}" FontSize="15" FontWeight="Bold" Grid.Row="1"/>
-                            <TextBlock Padding="0,0,5,0" Text="{Binding TextMSG}" FontSize="15" FontWeight="SemiBold" Grid.Row="2"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <TextBlock Margin="105,-8,0,0" TextWrapping="Wrap" Text="Возникли вопросы?" FontSize="25" VerticalAlignment="Top" Height="40" HorizontalAlignment="Left" Width="414"/>
-            <TextBlock Margin="105,329,0,-88" TextWrapping="Wrap" Text="Ваше сообщение:" VerticalAlignment="Top" Height="16" HorizontalAlignment="Left" Width="414"/>
-        </Grid>
         <Grid Margin="1007,40,10,10"  Width="255"  >
 
             <TextBox x:Name="tb_FirstName"  Height="35" Margin="10,139,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Light" FontSize="15" Style="{StaticResource TextBoxRevealStyle}" />
@@ -51,10 +29,7 @@
         <Grid Margin="21,20,275,30" Width="976"  >
             <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" Text="Журнал зарегистрированных водителей" FontSize="29" FontWeight="Light" VerticalAlignment="Top"  Height="42" Foreground="#FF155C97"/>
             <ListBox x:Name="Drivers" Margin="0,57,10,10" BorderBrush="{x:Null}" Background="{x:Null}" Style="{StaticResource ListBoxRevealStyle}" >
-
-
                 <ListBox.ItemTemplate>
-
                     <DataTemplate >
                         <Grid >
                             <Grid.ColumnDefinitions >
@@ -62,7 +37,7 @@
                                 <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="130"/>
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding Id}" Visibility="Hidden" />
@@ -70,7 +45,7 @@
                             <TextBlock Text="{Binding FirstName}" Grid.Column="1" Padding="5" VerticalAlignment="Center" FontWeight="Light" FontSize="14" />
                             <TextBlock Text="{Binding DateTime}" Grid.Column="2" Margin="5" VerticalAlignment="Center" FontWeight="Light" FontSize="14" />
                             <TextBlock Text="{Binding Phone}" Grid.Column="3" Margin="5" VerticalAlignment="Center" FontWeight="Light" FontSize="14"/>
-                            <TextBlock Text="{Binding Info}"  Grid.Column="4" Margin="5" VerticalAlignment="Center" ToolTip="{Binding Info}" FontWeight="Light" FontSize="14"/>
+                            <TextBlock Text="{Binding Info}" MaxHeight="20"  Grid.Column="4" Margin="5" VerticalAlignment="Center" ToolTip="{Binding Info}" FontWeight="Light" FontSize="14"/>
                             <Button x:Name="btn_Arrive" Margin="2"  Content="Изменить статус: &#10; Прибыл на склад" Grid.Column="5" Visibility="{Binding btn_Arrive}" Click="btn_Arrive_Click" VerticalAlignment="Center" FontWeight="Light" FontSize="14" Style="{StaticResource ButtonRevealStyle}">
                             </Button>
                             <Button x:Name="btn_Left" Margin="2" Content="Изменить статус: &#10; Покинул склад" Grid.Column="5" Visibility="{Binding btn_Left}" Click="btn_Left_Click" VerticalAlignment="Center" FontWeight="Light" FontSize="14" Style="{StaticResource ButtonRevealStyle}" >

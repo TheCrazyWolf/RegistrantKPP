@@ -48,7 +48,7 @@ namespace РегистрантКПП.Sklad
                         registrants.SecondName = tb_secondname.Text;
                         registrants.Phone = tb_phone.Text;
                         registrants.DateTime = DateTime.Now;
-                        registrants.Info = tb_info.Text;
+                        registrants.Info = tb_info.Text  + "\n-----" +"\n[I]" + DateTime.Now + " (" + Registrant.Default.LastLogin + ") создал карточку (" + tb_secondname.Text + " " + tb_secondname.Text + ", " + tb_secondname.Text + ")";
                         ef.Registrants.Add(registrants);
                         ef.SaveChanges();
                         MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);

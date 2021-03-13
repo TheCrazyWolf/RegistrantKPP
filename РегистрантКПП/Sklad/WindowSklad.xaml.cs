@@ -22,6 +22,7 @@ namespace РегистрантКПП.Sklad
     public partial class WindowSklad : Window
     {
         protected DB.Registrants registrants;
+        private Thread thread;
         public WindowSklad()
         {
             InitializeComponent();
@@ -36,7 +37,36 @@ namespace РегистрантКПП.Sklad
             }
 
             Refresh();
+            thread = new Thread(new ThreadStart(RefreshThread));
+            thread.Start();
         }
+
+
+        public void RefreshThread()
+        {
+            do
+            {
+                Thread.Sleep(15000);
+                Dispatcher.Invoke(() => Drivers.ItemsSource = null);
+                Driver driver = new Driver();
+
+                if (Dispatcher.Invoke(() => tb_search.Text == ""))
+                {
+                    if (Dispatcher.Invoke(() => ch_loadall.IsChecked == true))
+                    {
+                        driver.LoadListAll();
+                        Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+                    }
+                    else
+                    {
+                        driver.LoadList();
+                        Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+                    }
+                }
+
+            } while (true);
+        }
+
 
         void Refresh()
         {
@@ -360,6 +390,11 @@ namespace РегистрантКПП.Sklad
         {
             Registrant.Default.LoadAll = false;
             Registrant.Default.Save();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            thread.Abort();
         }
     }
 }

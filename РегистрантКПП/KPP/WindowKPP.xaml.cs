@@ -23,59 +23,20 @@ namespace РегистрантКПП.KPP
     public partial class WindowKPP : Window
     {
         protected DB.Registrants registrants;
-        //protected DB.Chat chats;
-        //Controllers.Chat chat = new Controllers.Chat();
-        //Controllers.Driver driver = new Controllers.Driver();
-
+        private Thread thread;
         Sklad.Driver driver = new Sklad.Driver();
         
         public WindowKPP()
         {
             InitializeComponent();
-            //Thread thread = new Thread(new ThreadStart(Refresher));
-            //thread.Start();
+            
             UpdateDrivers();
 
+            thread = new Thread(new ThreadStart(RefreshThread));
+            thread.Start();
+
         }
 
-        void Scroll()
-        {
-            Dispatcher.Invoke(() => lb_chat.SelectedIndex = lb_chat.Items.Count - 1);
-            Dispatcher.Invoke(() => lb_chat.ScrollIntoView(lb_chat.SelectedItem));
-        }
-
-        void Refresher()
-        {/*
-            try
-            {
-                chat.Refresh();
-                var chatix = chat.Chats;
-                Dispatcher.Invoke(() => lb_chat.ItemsSource = chatix);
-                Scroll();
-
-                Thread.Sleep(5000);
-
-                chat.Refresh();
-                chatix = chat.Chats;
-                if (Dispatcher.Invoke(() => lb_chat.ItemsSource != chatix))
-                {
-                    chat.Refresh();
-                    Dispatcher.Invoke(() => lb_chat.ItemsSource = chatix);
-                    Scroll();
-                    Refresher();
-                }
-                else
-                {
-                    Refresher();
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            */
-        }
 
         void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -101,7 +62,7 @@ namespace РегистрантКПП.KPP
                         registrants.SecondName = tb_secondname.Text;
                         registrants.Phone = tb_Phone.Text;
                         registrants.DateTime = DateTime.Now;
-                        registrants.Info = tb_info.Text;
+                        registrants.Info = tb_info.Text + "\n-----" + "\n[I]" + DateTime.Now + " (" + Registrant.Default.LastLogin + ") создал карточку (" + tb_secondname.Text + " " + tb_secondname.Text + ", " + tb_secondname.Text + ")"; 
                         ef.Registrants.Add(registrants);
                         ef.SaveChanges();
                         MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -119,30 +80,6 @@ namespace РегистрантКПП.KPP
             }
 
             MainGrid.Effect = null;
-        }
-
-        private void tb_enterchat_KeyDown(object sender, KeyEventArgs e)
-        {/*
-            if (e.Key == Key.Enter)
-            {
-                DB.RegistrantEntities ef = new DB.RegistrantEntities();
-
-                chats = new DB.Chat();
-                chats.NamePC = "КПП";
-                chats.TextMSG = tb_enterchat.Text;
-                chats.Time = DateTime.Now;
-
-                try
-                {
-                    ef.Chat.Add(chats);
-                    ef.SaveChanges();
-                    tb_enterchat.Text = "";
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }*/
         }
 
         private void btn_Arrive_Click(object sender, RoutedEventArgs e)
@@ -222,9 +159,30 @@ namespace РегистрантКПП.KPP
             Drivers.ItemsSource = null;
             driver.LoadList();
             Drivers.ItemsSource = driver.driverVs.ToList();
-            //Drivers.InvalidateArrange();
-            //Drivers.UpdateLayout();
         }
 
+        void RefreshThread()
+        {
+            try
+            {
+                do
+                {
+                    Thread.Sleep(600000);
+                    Dispatcher.Invoke(() => Drivers.ItemsSource = null);
+                    driver.LoadList();
+                    Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+                } while (true);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            thread.Abort();
+        }
     }
 }

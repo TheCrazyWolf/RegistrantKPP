@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:РегистрантКПП.Sklad"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
-        Title="РегистрантКПП  - Режим склада" Height="647" Width="1010" WindowState="Maximized" MinHeight="927" MinWidth="1440" fw:AcrylicWindow.Enabled="True" fw:PointerTracker.Enabled="True" Icon="/source/ico.ico" >
+        Title="РегистрантКПП  - Режим склада" Height="647" Width="1010" WindowState="Maximized" MinHeight="927" MinWidth="1440" fw:AcrylicWindow.Enabled="True" fw:PointerTracker.Enabled="True" Icon="/source/ico.ico" Closed="Window_Closed" >
     <Grid x:Name="MainGrid" Background="#B2FFFFFF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="931*"/>
@@ -56,7 +56,7 @@
                     <TextBlock Text="Статус" Grid.Column="4" Margin="5" FontWeight="Light" FontSize="14"/>
                 </Grid>
             </ListBox>
-            <CheckBox  VerticalContentAlignment="Center" x:Name="ch_loadall"  Content="Показывать &#xD;&#xA;всех и вся" HorizontalAlignment="Left" Margin="763,57,0,0" VerticalAlignment="Top" Width="107" RenderTransformOrigin="0.589,1" FontWeight="Light" FontSize="12" Height="33" Checked="ch_loadall_Checked" Unchecked="ch_loadall_Unchecked"  />
+            <CheckBox  VerticalContentAlignment="Center" x:Name="ch_loadall"  Content="Показывать всех &#xD;&#xA;и вся" Margin="763,57,10,0" VerticalAlignment="Top"  FontWeight="Light" FontSize="12" Height="33" Checked="ch_loadall_Checked" Unchecked="ch_loadall_Unchecked"  />
             <Button x:Name="btn_newdriver" Content="Новый водитель" HorizontalAlignment="Left" Margin="482,57,0,0" VerticalAlignment="Top" Width="132" Height="33" Click="btn_newdriver_Click" Background="Transparent" Style="{StaticResource ButtonRevealStyle}" FontWeight="Light" FontSize="14" />
             <Button x:Name="btn_opentable" Content="Открыть в таблице" HorizontalAlignment="Left" Margin="352,57,0,0" VerticalAlignment="Top" Width="125" Height="33" Click="btn_opentable_Click" Background="Transparent" Style="{StaticResource ButtonRevealStyle}" FontWeight="Light" FontSize="14"/>
             <Button x:Name="btn_refresh" Content="Обновить данные" HorizontalAlignment="Left" Margin="619,57,0,0" VerticalAlignment="Top" Width="133" Height="33" Click="btn_refresh_Click" Background="Transparent" Style="{StaticResource ButtonRevealStyle}" FontWeight="Light" FontSize="14" />
@@ -103,9 +103,9 @@
             <TextBlock TextWrapping="Wrap" Text="_______________________________________________________________" VerticalAlignment="Top" Margin="39,461,0,0" HorizontalAlignment="Left" Width="428" FontWeight="Light" FontSize="16" Height="24"/>
         </Grid>
 
-        <Grid Visibility="Visible" x:Name="Grid_ChooseDriver" Margin="10,0,20,413" Grid.Column="1" Height="304" VerticalAlignment="Bottom">
-            <TextBlock  Margin="23,182,22,0" TextWrapping="Wrap" FontWeight="Light" FontSize="25" Foreground="#FF155C97" Height="77" VerticalAlignment="Top"><Run Text="Выберите водителя для"/><LineBreak/><Run Text="просмотра детальной информации"/></TextBlock>
-            <Image Margin="10,77,334,0" Source="/РегистрантКПП;component/source/EyesEmoji.png" Height="100" VerticalAlignment="Top"/>
+        <Grid Visibility="Visible" x:Name="Grid_ChooseDriver" Margin="10,0,20,375" Grid.Column="1" Height="415" VerticalAlignment="Bottom">
+            <TextBlock  Margin="43,0,46,61"  TextAlignment="Center" TextWrapping="Wrap" FontWeight="Light" FontSize="25" Foreground="#FF155C97" Height="105"  Text="Выбери водителя, чтобы получить более детальную информацию о нем" VerticalAlignment="Bottom" />
+            <Image Margin="10,0,10,255" Source="/РегистрантКПП;component/source/EyesEmoji.png" Height="100" VerticalAlignment="Bottom"/>
         </Grid>
 
     </Grid>
