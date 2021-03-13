@@ -277,8 +277,6 @@ namespace РегистрантКПП.Sklad
             new_driver.Visibility = Visibility.Visible;
         }
 
-
-
         private void btn_opentable_Click(object sender, RoutedEventArgs e)
         {
             Table table = new Table();
@@ -299,7 +297,6 @@ namespace РегистрантКПП.Sklad
             }
             catch (Exception)
             {
-
                 MessageBox.Show("Произошла ошибка при обновление списка. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
