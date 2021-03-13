@@ -1,29 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Media.Effects;
-using System.Threading;
 
 namespace РегистрантКПП.Sklad
 {
-    /// <summary>
-    /// Логика взаимодействия для WindowSklad.xaml
-    /// </summary>
     public partial class WindowSklad : Window
     {
         protected DB.Registrants registrants;
         private Thread thread;
-
 
         public WindowSklad()
         {
@@ -39,44 +27,33 @@ namespace РегистрантКПП.Sklad
             }
 
             Refresh();
-            thread = new Thread(new ThreadStart(RefreshThread));
+            thread = new Thread(RefreshThread);
             thread.Start();
         }
 
         public void RefreshThread()
         {
-            try
+            do
             {
-                do
+                Thread.Sleep(60000);
+                Dispatcher.Invoke(() => Drivers.ItemsSource = null);
+                Driver driver = new Driver();
+
+                if (Dispatcher.Invoke(() => tb_search.Text == ""))
                 {
-                    Thread.Sleep(60000);
-                    Dispatcher.Invoke(() => Drivers.ItemsSource = null);
-                    Driver driver = new Driver();
-
-                    if (Dispatcher.Invoke(() => tb_search.Text == ""))
+                    if (Dispatcher.Invoke(() => ch_loadall.IsChecked == true))
                     {
-                        if (Dispatcher.Invoke(() => ch_loadall.IsChecked == true))
-                        {
-                            driver.LoadListAll();
-                            Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
-                        }
-                        else
-                        {
-                            driver.LoadList();
-                            Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
-                        }
+                        driver.LoadListAll();
+                        Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
                     }
-
-                } while (true);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-           
+                    else
+                    {
+                        driver.LoadList();
+                        Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+                    }
+                }
+            } while (true);
         }
-
 
         void Refresh()
         {
@@ -139,14 +116,10 @@ namespace РегистрантКПП.Sklad
                 }
                 
             } */
-
-
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
-
             if (tb_search.Text == "")
             {
                 Refresh();
@@ -168,8 +141,7 @@ namespace РегистрантКПП.Sklad
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 50;
+            BlurEffect effect = new BlurEffect {Radius = 50};
             MainGrid.Effect = effect;
 
             EditDriver edit = new EditDriver(Convert.ToInt32(tb_id.Text));
@@ -199,15 +171,13 @@ namespace РегистрантКПП.Sklad
                     MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             } */
-
             MainGrid.Effect = null;
 
         }
 
         private void btn_delete_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 50;
+            BlurEffect effect = new BlurEffect {Radius = 50};
             MainGrid.Effect = effect;
             
              MessageBoxResult result = MessageBox.Show("Вы действительно ходите удалить карточку №" + tb_id.Text + " на имя " + tb_firstname.Text + " " + tb_secondname.Text, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Information);
@@ -215,12 +185,17 @@ namespace РегистрантКПП.Sklad
             {
                 try
                 {
-                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    driv.Deleted = "D";
-                    driv.Info = driv.Info + "\n" + "[I]" + DateTime.Now + "(" + Registrant.Default.LastLogin + ") удалил карточку";
-                    ef.SaveChanges();
-                    ef.Dispose();
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var driver = ef.Registrants.FirstOrDefault(x => x.Id.ToString() == tb_id.Text);
+                        if (driver != null)
+                        {
+                            driver.Deleted = "D";
+                            driver.Info =
+                                $"{driver.Info}\n[I]{DateTime.Now}({Registrant.Default.LastLogin}) удалил карточку";
+                        }
+                        ef.SaveChanges();
+                    }
                     Refresh();
                     Driver_Info.Visibility = Visibility.Hidden;
                     Grid_ChooseDriver.Visibility = Visibility.Visible;
@@ -232,16 +207,13 @@ namespace РегистрантКПП.Sklad
                     MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
-            
             MainGrid.Effect = null;
         }
 
 
         private void btn_done_TimeArrive_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 50;
+            BlurEffect effect = new BlurEffect {Radius = 50};
             MainGrid.Effect = effect;
 
             MessageBoxResult result = MessageBox.Show("Вы действительно хотите обнвить статус водителя " + tb_firstname.Text + " " + tb_secondname.Text + " на ПРИБЫЛ?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -249,11 +221,15 @@ namespace РегистрантКПП.Sklad
             {
                 try
                 {
-                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    driv.TimeArrive = DateTime.Now;
-                    ef.SaveChanges();
-                    ef.Dispose();
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var driver = ef.Registrants.FirstOrDefault(x => x.Id.ToString() == tb_id.Text);
+                        if (driver != null)
+                        {
+                            driver.TimeArrive = DateTime.Now;
+                            ef.SaveChanges();
+                        }
+                    }
                     Refresh();
                     btn_done_TimeArrive.Visibility = Visibility.Collapsed;
 
@@ -264,14 +240,12 @@ namespace РегистрантКПП.Sklad
                     MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
             MainGrid.Effect = null;
         }
 
         private void btn_done_timeLeft_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 50;
+            BlurEffect effect = new BlurEffect {Radius = 50};
             MainGrid.Effect = effect;
 
             MessageBoxResult result = MessageBox.Show("Вы действительно хотите обнвить статус водителя " + tb_firstname.Text + " " + tb_secondname.Text + " на ПОКИНУЛ?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -279,12 +253,15 @@ namespace РегистрантКПП.Sklad
             {
                 try
                 {
-                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    driv.TimeLeft = DateTime.Now;
-
-                    ef.SaveChanges();
-                    ef.Dispose();
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var driver = ef.Registrants.FirstOrDefault(x => x.Id.ToString() == tb_id.Text);
+                        if (driver != null)
+                        {
+                            driver.TimeLeft = DateTime.Now;
+                        }
+                        ef.SaveChanges();
+                    }
                     Refresh();
 
                     btn_done_TimeArrive.Visibility = Visibility.Collapsed;
@@ -301,11 +278,9 @@ namespace РегистрантКПП.Sklad
             MainGrid.Effect = null;
         }
 
-
         private void btn_newdriver_Click(object sender, RoutedEventArgs e)
         {
-            BlurEffect effect = new BlurEffect();
-            effect.Radius = 20;
+            BlurEffect effect = new BlurEffect {Radius = 20};
             MainGrid.Effect = effect;
 
             NewDriver newDriver = new NewDriver();
@@ -313,8 +288,6 @@ namespace РегистрантКПП.Sklad
             Refresh();
             MainGrid.Effect = null;
         }
-
-
 
         private void btn_opentable_Click(object sender, RoutedEventArgs e)
         {
@@ -324,7 +297,6 @@ namespace РегистрантКПП.Sklad
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 Drivers.ItemsSource = null;
@@ -346,14 +318,11 @@ namespace РегистрантКПП.Sklad
                 {
                     Grid_Banana.Visibility = Visibility.Hidden;
                 }
-
             }
             catch (Exception)
             {
-
                 MessageBox.Show("Произошла ошибка при обновление списка. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
         }
 
         private void Drivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -361,10 +330,8 @@ namespace РегистрантКПП.Sklad
             btn_done_timeLeft.Visibility = Visibility.Visible;
             btn_done_TimeArrive.Visibility = Visibility.Visible;
 
-
-
-            var current_driver = Drivers.SelectedItem as DriverV;
-            Driver_Info.DataContext = current_driver;
+            var currentDriver = Drivers.SelectedItem as DriverV;
+            Driver_Info.DataContext = currentDriver;
 
             if (tb_TimeArrive.Text != "")
             {
@@ -388,7 +355,6 @@ namespace РегистрантКПП.Sklad
             }
 
         }
-
 
         private void ch_loadall_Checked(object sender, RoutedEventArgs e)
         {
