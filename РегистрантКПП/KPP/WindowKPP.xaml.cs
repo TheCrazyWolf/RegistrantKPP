@@ -167,7 +167,7 @@ namespace РегистрантКПП.KPP
             {
                 do
                 {
-                    Thread.Sleep(600000);
+                    Thread.Sleep(60000);
                     Dispatcher.Invoke(() => Drivers.ItemsSource = null);
                     driver.LoadList();
                     Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());

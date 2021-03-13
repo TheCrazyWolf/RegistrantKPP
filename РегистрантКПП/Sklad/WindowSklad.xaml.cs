@@ -23,6 +23,8 @@ namespace РегистрантКПП.Sklad
     {
         protected DB.Registrants registrants;
         private Thread thread;
+
+
         public WindowSklad()
         {
             InitializeComponent();
@@ -41,30 +43,38 @@ namespace РегистрантКПП.Sklad
             thread.Start();
         }
 
-
         public void RefreshThread()
         {
-            do
+            try
             {
-                Thread.Sleep(15000);
-                Dispatcher.Invoke(() => Drivers.ItemsSource = null);
-                Driver driver = new Driver();
-
-                if (Dispatcher.Invoke(() => tb_search.Text == ""))
+                do
                 {
-                    if (Dispatcher.Invoke(() => ch_loadall.IsChecked == true))
-                    {
-                        driver.LoadListAll();
-                        Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
-                    }
-                    else
-                    {
-                        driver.LoadList();
-                        Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
-                    }
-                }
+                    Thread.Sleep(60000);
+                    Dispatcher.Invoke(() => Drivers.ItemsSource = null);
+                    Driver driver = new Driver();
 
-            } while (true);
+                    if (Dispatcher.Invoke(() => tb_search.Text == ""))
+                    {
+                        if (Dispatcher.Invoke(() => ch_loadall.IsChecked == true))
+                        {
+                            driver.LoadListAll();
+                            Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+                        }
+                        else
+                        {
+                            driver.LoadList();
+                            Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+                        }
+                    }
+
+                } while (true);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
         }
 
 
