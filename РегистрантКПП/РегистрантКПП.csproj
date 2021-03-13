@@ -102,6 +102,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Registrant.settings</DependentUpon>
     </Compile>
+    <Compile Include="Sklad\NewDriver.xaml.cs">
+      <DependentUpon>NewDriver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sklad\EditDriver.xaml.cs">
+      <DependentUpon>EditDriver.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sklad\Table.xaml.cs">
       <DependentUpon>Table.xaml</DependentUpon>
     </Compile>
@@ -124,6 +130,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sklad\NewDriver.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sklad\EditDriver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Sklad\Table.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,6 +195,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="source\CookiesSad.png" />
+    <Resource Include="source\EyesEmoji.png" />
+    <Resource Include="source\banana.png" />
     <Resource Include="source\plug.png" />
     <Resource Include="source\PoopEmoji.png" />
     <Content Include="DB\Registrant.Context.tt">

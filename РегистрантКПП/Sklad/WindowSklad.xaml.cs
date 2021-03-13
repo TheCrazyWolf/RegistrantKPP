@@ -25,6 +25,16 @@ namespace РегистрантКПП.Sklad
         public WindowSklad()
         {
             InitializeComponent();
+
+            if (Registrant.Default.LoadAll == true)
+            {
+                ch_loadall.IsChecked = true;
+            }
+            else if (Registrant.Default.LoadAll == false)
+            {
+                ch_loadall.IsChecked = false;
+            }
+
             Refresh();
         }
 
@@ -52,32 +62,55 @@ namespace РегистрантКПП.Sklad
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            btn_done_timeLeft.Visibility = Visibility.Visible;
-            btn_done_TimeArrive.Visibility = Visibility.Visible;
-            new_driver.Visibility = Visibility.Hidden;
+           /* btn_done_timeLeft.Visibility = Visibility.Collapsed;
+            btn_done_TimeArrive.Visibility = Visibility.Collapsed;
+            new_driver.Visibility = Visibility.Collapsed;
             Driver_Info.Visibility = Visibility.Visible;
 
 
             var current_driver = Drivers.SelectedItem as DriverV;
-            Driver_Info.DataContext = current_driver;
-     
-                if (tb_TimeArrive.Text != "")
-                {
-                    btn_done_TimeArrive.Visibility = Visibility.Hidden;
 
-                    if (tb_TimeLeft.Text != "")
+            try
+            {
+                DB.RegistrantEntities ef = new DB.RegistrantEntities();
+                var temp = ef.Registrants.Where(x => x.Id == current_driver.Id).FirstOrDefault();
+
+                
+                Driver_Info.DataContext = temp;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+            if (tb_DateTime.Text != null)
+            {
+                if (tb_TimeLeft.Text != null)
+                {
+                    btn_done_TimeArrive.Visibility = Visibility.Visible;
+
+                    if (tb_TimeArrive.Text != null)
                     {
-                        btn_done_timeLeft.Visibility = Visibility.Hidden;
+                        btn_done_timeLeft.Visibility = Visibility.Visible;
                     }
                 }
+                
+            } */
+
 
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
+
             if (tb_search.Text == "")
             {
                 Refresh();
+                Grid_Banana.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -89,6 +122,7 @@ namespace РегистрантКПП.Sklad
         private void btn_exit_Click(object sender, RoutedEventArgs e)
         {
             Driver_Info.Visibility = Visibility.Hidden;
+            Grid_ChooseDriver.Visibility = Visibility.Visible;
             Refresh();
         }
 
@@ -98,11 +132,15 @@ namespace РегистрантКПП.Sklad
             effect.Radius = 50;
             MainGrid.Effect = effect;
 
-            MessageBoxResult result = MessageBox.Show("Вы действительно хотите обновить данные?","Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            EditDriver edit = new EditDriver(Convert.ToInt32(tb_id.Text));
+            edit.ShowDialog();
+            Refresh();
+
+            /* MessageBoxResult result = MessageBox.Show("Вы действительно хотите обновить данные?","Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 try
-                {
+                { /*
                     DB.RegistrantEntities ef = new DB.RegistrantEntities();
                     var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
                     driv.FirstName = tb_firstname.Text;
@@ -120,7 +158,7 @@ namespace РегистрантКПП.Sklad
                 {
                     MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
+            } */
 
             MainGrid.Effect = null;
 
@@ -140,11 +178,12 @@ namespace РегистрантКПП.Sklad
                     DB.RegistrantEntities ef = new DB.RegistrantEntities();
                     var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
                     driv.Deleted = "D";
-                    driv.Info = tb_info.Text + "\n" + DateTime.Now + " карточка удалена";
+                    driv.Info = driv.Info + "\n" + "[I]" + DateTime.Now + "(" + Registrant.Default.LastLogin + ") удалил карточку";
                     ef.SaveChanges();
                     ef.Dispose();
                     Refresh();
                     Driver_Info.Visibility = Visibility.Hidden;
+                    Grid_ChooseDriver.Visibility = Visibility.Visible;
 
                     MessageBox.Show("Карточка успешно удалена", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -154,6 +193,7 @@ namespace РегистрантКПП.Sklad
                 }
             }
 
+            
             MainGrid.Effect = null;
         }
 
@@ -175,7 +215,7 @@ namespace РегистрантКПП.Sklad
                     ef.SaveChanges();
                     ef.Dispose();
                     Refresh();
-                    btn_done_TimeArrive.Visibility = Visibility.Hidden;
+                    btn_done_TimeArrive.Visibility = Visibility.Collapsed;
 
                     MessageBox.Show("Данные успешно обновлены", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -207,8 +247,8 @@ namespace РегистрантКПП.Sklad
                     ef.Dispose();
                     Refresh();
 
-                    btn_done_TimeArrive.Visibility = Visibility.Hidden;
-                    btn_done_timeLeft.Visibility = Visibility.Hidden;
+                    btn_done_TimeArrive.Visibility = Visibility.Collapsed;
+                    btn_done_timeLeft.Visibility = Visibility.Collapsed;
 
                     MessageBox.Show("Данные успешно обновлены", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -221,58 +261,17 @@ namespace РегистрантКПП.Sklad
             MainGrid.Effect = null;
         }
 
-        private void btn_regist_Click(object sender, RoutedEventArgs e)
+
+        private void btn_newdriver_Click(object sender, RoutedEventArgs e)
         {
             BlurEffect effect = new BlurEffect();
             effect.Radius = 20;
             MainGrid.Effect = effect;
 
-            if (tbx_FirstName.Text == "" && tb_secondname.Text == "" && tbx_Phone.Text == "")
-            {
-                MessageBox.Show("Не все требуемые поля заполнены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            else
-            {
-                MessageBoxResult result = MessageBox.Show("Будет произведена регистрация водителя: " + tbx_FirstName.Text + " " + tbx_secondname.Text + " " + tbx_Phone.Text, "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
-                {
-                    try
-                    {
-                        DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                        registrants = new DB.Registrants();
-
-                        registrants.FirstName = tbx_FirstName.Text;
-                        registrants.SecondName = tbx_secondname.Text;
-                        registrants.Phone = tbx_Phone.Text;
-                        registrants.DateTime = DateTime.Now;
-                        registrants.Info = tbx_info.Text;
-                        ef.Registrants.Add(registrants);
-                        ef.SaveChanges();
-                        MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
-                        tbx_FirstName.Text = ""; tbx_secondname.Text = ""; tbx_Phone.Text = ""; tbx_info.Text = "";
-                        ef.Dispose();
-                        Refresh();
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Произошла ошибка при регистрации. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-            }
-
+            NewDriver newDriver = new NewDriver();
+            newDriver.ShowDialog();
+            Refresh();
             MainGrid.Effect = null;
-            new_driver.Visibility = Visibility.Hidden;
-        }
-
-        private void btn_closed(object sender, RoutedEventArgs e)
-        {
-            new_driver.Visibility = Visibility.Hidden;
-        }
-
-        private void btn_newdriver_Click(object sender, RoutedEventArgs e)
-        {
-            Driver_Info.Visibility = Visibility.Hidden;
-            new_driver.Visibility = Visibility.Visible;
         }
 
 
@@ -298,6 +297,16 @@ namespace РегистрантКПП.Sklad
                 // data.Distinct().ToArray();
                 var noDupes = data.Distinct().ToList();
                 Drivers.ItemsSource = noDupes;
+
+                if (noDupes.Count == 0)
+                {
+                    Grid_Banana.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Grid_Banana.Visibility = Visibility.Hidden;
+                }
+
             }
             catch (Exception)
             {
@@ -307,6 +316,50 @@ namespace РегистрантКПП.Sklad
             
         }
 
- 
+        private void Drivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btn_done_timeLeft.Visibility = Visibility.Visible;
+            btn_done_TimeArrive.Visibility = Visibility.Visible;
+
+
+
+            var current_driver = Drivers.SelectedItem as DriverV;
+            Driver_Info.DataContext = current_driver;
+
+            if (tb_TimeArrive.Text != "")
+            {
+                btn_done_TimeArrive.Visibility = Visibility.Collapsed;
+
+                if (tb_TimeLeft.Text != "")
+                {
+                    btn_done_timeLeft.Visibility = Visibility.Collapsed;
+                }
+            }
+
+            if (tb_id.Text == "")
+            {
+                Driver_Info.Visibility = Visibility.Hidden;
+                Grid_ChooseDriver.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Driver_Info.Visibility = Visibility.Visible;
+                Grid_ChooseDriver.Visibility = Visibility.Hidden;
+            }
+
+        }
+
+
+        private void ch_loadall_Checked(object sender, RoutedEventArgs e)
+        {
+            Registrant.Default.LoadAll = true;
+            Registrant.Default.Save();
+        }
+
+        private void ch_loadall_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Registrant.Default.LoadAll = false;
+            Registrant.Default.Save();
+        }
     }
 }
