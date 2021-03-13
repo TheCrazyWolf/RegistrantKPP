@@ -36,15 +36,16 @@ namespace РегистрантКПП.Sklad
             do
             {
                 Thread.Sleep(60000);
-                Dispatcher.Invoke(() => Drivers.ItemsSource = null);
                 Driver driver = new Driver();
 
                 if (Dispatcher.Invoke(() => tb_search.Text == ""))
                 {
+                    Dispatcher.Invoke(() => Drivers.ItemsSource = null);
                     if (Dispatcher.Invoke(() => ch_loadall.IsChecked == true))
                     {
                         driver.LoadListAll();
                         Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+
                     }
                     else
                     {
