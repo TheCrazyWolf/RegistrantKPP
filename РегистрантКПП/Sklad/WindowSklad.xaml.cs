@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,7 +12,6 @@ namespace РегистрантКПП.Sklad
     {
         protected DB.Registrants registrants;
         private Thread thread;
-
 
         public WindowSklad()
         {
@@ -27,44 +27,33 @@ namespace РегистрантКПП.Sklad
             }
 
             Refresh();
-            thread = new Thread(new ThreadStart(RefreshThread));
+            thread = new Thread(RefreshThread);
             thread.Start();
         }
 
         public void RefreshThread()
         {
-            try
+            do
             {
-                do
+                Thread.Sleep(60000);
+                Dispatcher.Invoke(() => Drivers.ItemsSource = null);
+                Driver driver = new Driver();
+
+                if (Dispatcher.Invoke(() => tb_search.Text == ""))
                 {
-                    Thread.Sleep(60000);
-                    Dispatcher.Invoke(() => Drivers.ItemsSource = null);
-                    Driver driver = new Driver();
-
-                    if (Dispatcher.Invoke(() => tb_search.Text == ""))
+                    if (Dispatcher.Invoke(() => ch_loadall.IsChecked == true))
                     {
-                        if (Dispatcher.Invoke(() => ch_loadall.IsChecked == true))
-                        {
-                            driver.LoadListAll();
-                            Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
-                        }
-                        else
-                        {
-                            driver.LoadList();
-                            Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
-                        }
+                        driver.LoadListAll();
+                        Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
                     }
-
-                } while (true);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-           
+                    else
+                    {
+                        driver.LoadList();
+                        Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+                    }
+                }
+            } while (true);
         }
-
 
         void Refresh()
         {
@@ -127,14 +116,10 @@ namespace РегистрантКПП.Sklad
                 }
                 
             } */
-
-
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
-
             if (tb_search.Text == "")
             {
                 Refresh();
@@ -186,7 +171,6 @@ namespace РегистрантКПП.Sklad
                     MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             } */
-
             MainGrid.Effect = null;
 
         }
@@ -201,12 +185,17 @@ namespace РегистрантКПП.Sklad
             {
                 try
                 {
-                    DB.RegistrantEntities ef = new DB.RegistrantEntities();
-                    var driv = ef.Registrants.Where(x => x.Id.ToString() == tb_id.Text).FirstOrDefault();
-                    driv.Deleted = "D";
-                    driv.Info = driv.Info + "\n" + "[I]" + DateTime.Now + "(" + Registrant.Default.LastLogin + ") удалил карточку";
-                    ef.SaveChanges();
-                    ef.Dispose();
+                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    {
+                        var driver = ef.Registrants.FirstOrDefault(x => x.Id.ToString() == tb_id.Text);
+                        if (driver != null)
+                        {
+                            driver.Deleted = "D";
+                            driver.Info =
+                                $"{driver.Info}\n[I]{DateTime.Now}({Registrant.Default.LastLogin}) удалил карточку";
+                        }
+                        ef.SaveChanges();
+                    }
                     Refresh();
                     Driver_Info.Visibility = Visibility.Hidden;
                     Grid_ChooseDriver.Visibility = Visibility.Visible;
@@ -218,8 +207,6 @@ namespace РегистрантКПП.Sklad
                     MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
-            
             MainGrid.Effect = null;
         }
 
@@ -253,7 +240,6 @@ namespace РегистрантКПП.Sklad
                     MessageBox.Show("Произошла ошибка при сохранении данных. Проверьте подключение к БД/правильность данных и еще что нибудь да проверьте", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
             MainGrid.Effect = null;
         }
 
@@ -292,7 +278,6 @@ namespace РегистрантКПП.Sklad
             MainGrid.Effect = null;
         }
 
-
         private void btn_newdriver_Click(object sender, RoutedEventArgs e)
         {
             BlurEffect effect = new BlurEffect {Radius = 20};
@@ -303,8 +288,6 @@ namespace РегистрантКПП.Sklad
             Refresh();
             MainGrid.Effect = null;
         }
-
-
 
         private void btn_opentable_Click(object sender, RoutedEventArgs e)
         {
@@ -335,13 +318,11 @@ namespace РегистрантКПП.Sklad
                 {
                     Grid_Banana.Visibility = Visibility.Hidden;
                 }
-
             }
             catch (Exception)
             {
                 MessageBox.Show("Произошла ошибка при обновление списка. Пожалуйста обратитесь к персоналу. Проверьте подключение к БД/интернет или еще что нибудь", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
         }
 
         private void Drivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -349,10 +330,8 @@ namespace РегистрантКПП.Sklad
             btn_done_timeLeft.Visibility = Visibility.Visible;
             btn_done_TimeArrive.Visibility = Visibility.Visible;
 
-
-
-            var current_driver = Drivers.SelectedItem as DriverV;
-            Driver_Info.DataContext = current_driver;
+            var currentDriver = Drivers.SelectedItem as DriverV;
+            Driver_Info.DataContext = currentDriver;
 
             if (tb_TimeArrive.Text != "")
             {
@@ -376,7 +355,6 @@ namespace РегистрантКПП.Sklad
             }
 
         }
-
 
         private void ch_loadall_Checked(object sender, RoutedEventArgs e)
         {

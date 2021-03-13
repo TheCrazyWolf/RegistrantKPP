@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media.Effects;
+using РегистрантКПП.DB;
 
 namespace РегистрантКПП.KPP
 {
     public partial class WindowKPP : Window
     {
-        protected DB.Registrants registrants;
+        protected Registrants registrants;
         private Thread thread;
         Sklad.Driver driver = new Sklad.Driver();
         
@@ -41,27 +42,21 @@ namespace РегистрантКПП.KPP
                 {
                     try
                     {
-                        using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                        using (RegistrantEntities ef = new RegistrantEntities())
                         {
-                            registrants = new DB.Registrants
+                            registrants = new Registrants
                             {
                                 FirstName = tb_FirstName.Text,
                                 SecondName = tb_secondname.Text,
                                 Phone = tb_Phone.Text,
                                 DateTime = DateTime.Now,
-                                Info = tb_info.Text
+                                Info = $"{tb_info.Text}\n-----\n[I]{DateTime.Now} ({Registrant.Default.LastLogin}) создал карточку ({tb_secondname.Text} {tb_secondname.Text}, {tb_secondname.Text})"
                             };
-
-                        registrants.FirstName = tb_FirstName.Text;
-                        registrants.SecondName = tb_secondname.Text;
-                        registrants.Phone = tb_Phone.Text;
-                        registrants.DateTime = DateTime.Now;
-                        registrants.Info = tb_info.Text + "\n-----" + "\n[I]" + DateTime.Now + " (" + Registrant.Default.LastLogin + ") создал карточку (" + tb_secondname.Text + " " + tb_secondname.Text + ", " + tb_secondname.Text + ")"; 
-                        ef.Registrants.Add(registrants);
-                        ef.SaveChanges();
-                        MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
-                        tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Phone.Text = ""; tb_info.Text = "";
-
+                            
+                            ef.Registrants.Add(registrants);
+                            ef.SaveChanges();
+                            MessageBox.Show("Водитель зарегистрирован", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+                            tb_FirstName.Text = ""; tb_secondname.Text = ""; tb_Phone.Text = ""; tb_info.Text = "";
                             driver.LoadList();
                             Drivers.ItemsSource = driver.driverVs.ToList();
                         }
@@ -89,7 +84,7 @@ namespace РегистрантКПП.KPP
             {
                 try
                 {
-                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    using (RegistrantEntities ef = new RegistrantEntities())
                     {
                         var currentDriverModel = ef.Registrants.FirstOrDefault(x => x.Id == currentDriver.Id);
                         if (currentDriverModel != null)
@@ -124,7 +119,7 @@ namespace РегистрантКПП.KPP
             {
                 try
                 {
-                    using (DB.RegistrantEntities ef = new DB.RegistrantEntities())
+                    using (RegistrantEntities ef = new RegistrantEntities())
                     {
                         var currentDriverModel = ef.Registrants.FirstOrDefault(x => x.Id == currentDriver.Id);
                         if (currentDriverModel != null)
@@ -153,21 +148,13 @@ namespace РегистрантКПП.KPP
 
         void RefreshThread()
         {
-            try
+            do
             {
-                do
-                {
-                    Thread.Sleep(60000);
-                    Dispatcher.Invoke(() => Drivers.ItemsSource = null);
-                    driver.LoadList();
-                    Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
-                } while (true);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+                Thread.Sleep(60000);
+                Dispatcher.Invoke(() => Drivers.ItemsSource = null);
+                driver.LoadList();
+                Dispatcher.Invoke(() => Drivers.ItemsSource = driver.driverVs.ToList());
+            } while (true);
         }
 
         private void Window_Closed(object sender, EventArgs e)
