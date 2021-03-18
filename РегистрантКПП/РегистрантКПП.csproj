@@ -14,20 +14,6 @@
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -119,8 +105,8 @@
     <Compile Include="DB\Registrants.cs">
       <DependentUpon>Registrant.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sklad\Driver.cs" />
-    <Compile Include="Sklad\DriverV.cs" />
+    <Compile Include="Controller\Driver.cs" />
+    <Compile Include="Controller\DriverV.cs" />
     <Compile Include="KPP\WindowKPP.xaml.cs">
       <DependentUpon>WindowKPP.xaml</DependentUpon>
     </Compile>
@@ -223,7 +209,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ver.txt" />
     <Resource Include="source\CookiesSad.png" />
     <Resource Include="source\EyesEmoji.png" />
     <Resource Include="source\banana.png" />
@@ -242,9 +227,7 @@
     <Resource Include="source\ico.ico" />
     <Resource Include="source\SplashScreen.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>

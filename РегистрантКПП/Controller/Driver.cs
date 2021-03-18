@@ -10,7 +10,6 @@ namespace РегистрантКПП.Sklad
         public ObservableCollection<DriverV> driverVs { get; set; }
         public Driver()
         {
-            
         }
 
         public void LoadList()
