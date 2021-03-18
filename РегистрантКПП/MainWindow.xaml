@@ -16,7 +16,7 @@
             <PasswordBox x:Name="tb_lastpassword" Style="{StaticResource PasswordBoxRevealStyle}"  Height="36" Margin="42,303,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" />
             <Button x:Name="btn_enter" Click="btn_enter_Click" Content="Вход" FontWeight="Light" HorizontalAlignment="Left" Margin="42,355,0,0" FontSize="16" VerticalAlignment="Top" Width="99" Height="31" Style="{StaticResource ButtonRevealStyle}"/>
             <Image HorizontalAlignment="Left" Height="74" Margin="36,0,0,389" Source="source/WareHouse.png" VerticalAlignment="Bottom" Width="74"/>
-            <TextBlock TextWrapping="Wrap" FontWeight="Light" VerticalAlignment="Top" Height="43" Margin="42,455,44,0"><Run Text="РегистрантКПП"/><Run Text=" - "/><Run Text="ver. 1.0 (Release)"/><LineBreak/><Run Text="Разработка Алекей Кулагин"/></TextBlock>
+            <TextBlock TextWrapping="Wrap" FontWeight="Light" VerticalAlignment="Top" Height="43" Margin="42,455,44,0"><Run Text="РегистрантКПП"/><Run Text=" - "/><Run Text="ver. 1.0 (Release)"/><LineBreak/><Run Text="Разработка Алекей Кулагин (TheCrazyWolf)"/></TextBlock>
         </Grid>
         <Grid x:Name="GridError" Visibility="Hidden"
               fw:PointerTracker.Enabled="True" Width="390"  Height="787"  >
@@ -25,7 +25,7 @@
             <TextBox x:Name="tb_ip" Style="{StaticResource TextBoxRevealStyle}"  Height="35" Margin="42,233,44,0" TextWrapping="Wrap" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="sdf" />
             <TextBlock TextWrapping="Wrap" Text="Порт" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,271,44,0"/>
             <TextBox x:Name="tb_port" Style="{StaticResource TextBoxRevealStyle}"  Height="36" Margin="42,294,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="dfg"/>
-            <TextBlock TextWrapping="Wrap" FontWeight="Light" VerticalAlignment="Top" Height="43" Margin="42,592,44,0"><Run Text="РегистрантКПП"/><Run Text=" - "/><Run Text="ver. 1.0 (Release)"/><LineBreak/><Run Text="Разработка Алекcей Кулагин"/></TextBlock>
+            <TextBlock TextWrapping="Wrap" FontWeight="Light" VerticalAlignment="Top" Height="43" Margin="42,592,44,0"><Run Text="РегистрантКПП"/><Run Text=" - "/><Run Text="ver. 1.0 (Release)"/><LineBreak/><Run Text="Разработка Алекcей Кулагин (TheCrazyWolf)"/></TextBlock>
             <Image HorizontalAlignment="Left" Height="85" Margin="159,10,0,0" VerticalAlignment="Top" Width="69" Source="source/Disappointed.png" />
             <TextBlock TextWrapping="Wrap" Text="Название БД" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Height="23" Margin="42,336,44,0"/>
             <TextBox x:Name="tb_bdname" Style="{StaticResource TextBoxRevealStyle}"  Height="36" Margin="42,359,44,0" FontSize="16" FontWeight="Light" VerticalAlignment="Top" Text="dfg"/>
