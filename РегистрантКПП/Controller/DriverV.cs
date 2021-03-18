@@ -31,6 +31,10 @@ namespace РегистрантКПП.Sklad
 
         }
 
+        /// <summary>
+        /// магия
+        /// </summary>
+        /// <param name="registrants"></param>
         public DriverV(DB.Registrants registrants)
         {
             Id = registrants.Id;

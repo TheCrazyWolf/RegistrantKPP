@@ -6,7 +6,9 @@ namespace РегистрантКПП.Sklad
 {
     public class Driver
     {
-        //Лист со списком водителей (??)
+        /// <summary>
+        /// Основной лист с водителями в который помещается уже обработанные данные
+        /// </summary>
         public ObservableCollection<DriverV> driverVs { get; set; }
         public Driver()
         {
@@ -19,30 +21,35 @@ namespace РегистрантКПП.Sklad
             //Временный лист из бд
             DB.RegistrantEntities ef = new DB.RegistrantEntities();
 
-            //Пихаем в листы только у тех у кого не проставлено время ппокидания скалада
+            //Создаем ввременный лист в котором будут данные из бд, у которые не покинули склад и не удалены
             List<DB.Registrants> drivers = ef.Registrants.Where(x => (x.Deleted != "D") && (x.TimeLeft == null)).ToList();
 
             //Перебор в листах данных
             foreach (var item in drivers)
             {
                 DriverV driverV = new DriverV(item);
+                //И добавляем в основной лист
                 driverVs.Add(driverV);
 
             }
 
-            //Сортировка по последним записям
+            // Сортировка водителей по последним записям (по ID)
             var d = driverVs.OrderByDescending(x => x.Id).ToList();
 
-            //Очистка шлаков и токсинов
+            //Очищаем основной лист с водителями
             driverVs.Clear();
 
             //Тот же самый перебор данных только в уже в основной лист (который был очищен) типа как цикл foreach
             d.ForEach(x => driverVs.Add(x));
 
+            // ДИСПОЗЕ  )(()))
             ef.Dispose();
 
         }
 
+        /// <summary>
+        /// ПРогрузка всего, удаленные не показываются
+        /// </summary>
         public void LoadListAll()
         {
             driverVs = new ObservableCollection<DriverV>();
@@ -69,15 +76,15 @@ namespace РегистрантКПП.Sklad
 
             //Тот же самый перебор данных только в уже в основной лист (который был очищен) типа как цикл foreach
             d.ForEach(x => driverVs.Add(x));
-
             ef.Dispose();
-
         }
 
 
+        /// <summary>
+        /// Прогрузка всего в том числе удаленных
+        /// </summary>
         public void LoadListAllWithDel()
         {
-           
             driverVs = new ObservableCollection<DriverV>();
 
             //Временный лист из бд
@@ -91,7 +98,6 @@ namespace РегистрантКПП.Sklad
             {
                 DriverV driverV = new DriverV(item);
                 driverVs.Add(driverV);
-
             }
 
             //Сортировка по последним записям
@@ -102,9 +108,7 @@ namespace РегистрантКПП.Sklad
 
             //Тот же самый перебор данных только в уже в основной лист (который был очищен) типа как цикл foreach
             d.ForEach(x => driverVs.Add(x));
-
             ef.Dispose();
-
         }
     }
 }

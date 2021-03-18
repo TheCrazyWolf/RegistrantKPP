@@ -192,8 +192,7 @@ namespace РегистрантКПП.Sklad
                         if (driver != null)
                         {
                             driver.Deleted = "D";
-                            driver.Info =
-                                $"{driver.Info}\n[I]{DateTime.Now}({Registrant.Default.LastLogin}) удалил карточку";
+                            driver.Info = $"{driver.Info}\n[I]{DateTime.Now}({Registrant.Default.LastLogin}) удалил карточку";
                         }
                         ef.SaveChanges();
                     }
