@@ -130,13 +130,25 @@ namespace РегистрантКПП {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool LoadAll {
             get {
                 return ((bool)(this["LoadAll"]));
             }
             set {
                 this["LoadAll"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Debug {
+            get {
+                return ((bool)(this["Debug"]));
+            }
+            set {
+                this["Debug"] = value;
             }
         }
     }

@@ -12,8 +12,19 @@ namespace РегистрантКПП
         {
             InitializeComponent();
 
-            CheckDay();
+            tb_welcome.Text = CheckDay();
+            LoadDataFromSettigns();
 
+            // Иниц потока для проверки соединения дабы приложениен не висло
+            Thread thread = new Thread(new ThreadStart(TestConnect));
+            thread.Start();
+        }
+
+        /// <summary>
+        /// Подгрузка в полях последние данные для подключения из файла настроек
+        /// </summary>
+        void LoadDataFromSettigns()
+        {
             tb_ip.Text = Registrant.Default.IP;
             tb_port.Text = Registrant.Default.PORT;
             tb_bdname.Text = Registrant.Default.DB;
@@ -22,32 +33,38 @@ namespace РегистрантКПП
 
             tb_lastlogin.Text = Registrant.Default.LastLogin;
             tb_lastpassword.Password = Registrant.Default.LastPassword;
-
-            Thread thread = new Thread(new ThreadStart(TestConnect));
-            thread.Start();
         }
 
-        private void CheckDay()
+        /// <summary>
+        /// Пожелание юзеру доброго дня
+        /// </summary>
+        /// <returns></returns>
+        private string CheckDay()
         {
             double x = DateTime.Now.Hour;
             if (x > 6 && x < 12)
             {
-                tb_welcome.Text = "Доброе утро";
+                return "Доброе утро";
             }
             else if (x >= 12 && x < 15)
             {
-                tb_welcome.Text = "Добрый день";
+                return "Добрый день";
             }
             else if (x >= 15 && x < 21)
             {
-                tb_welcome.Text = "Добрый вечер";
+                return "Добрый вечер";
             }
             else if (x >= 21)
             {
-                tb_welcome.Text = "Доброй ночи";
+                return "Доброй ночи";
             }
+
+            return "Какое то магическое измерение";
         }
 
+        /// <summary>
+        /// Проверка соединения
+        /// </summary>
         void TestConnect()
         {
             try
@@ -63,15 +80,21 @@ namespace РегистрантКПП
                 Dispatcher.Invoke(() => GridError.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GridWait.Visibility = Visibility.Hidden);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Dispatcher.Invoke(() => tb_debug.Text = ex.ToString());
+
                 Dispatcher.Invoke(() => GridAuth.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GridWait.Visibility = Visibility.Hidden);
                 Dispatcher.Invoke(() => GridError.Visibility = Visibility.Visible);
             }
         }
 
-
+        /// <summary>
+        /// Сохранения настроек для подключения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_save_settings_Click(object sender, RoutedEventArgs e)
         {
             Registrant.Default.IP = tb_ip.Text;
@@ -81,11 +104,6 @@ namespace РегистрантКПП
             Registrant.Default.PASSWORD = tb_bdpass.Text;
             Registrant.Default.Save();
 
-            //var connect = @"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=" + tb_ip.Text + ", " + tb_port.Text + ";initial catalog=" + tb_bdname.Text + ";persist security info=True;user id=" + tb_bdlogin.Text + ";password=" + tb_bdpass.Text + ";integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;";
-            //string connect = "metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=" + tb_ip.Text + "," + tb_port.Text + ";initial catalog=" + tb_bdname.Text + ";user id=" + tb_bdlogin.Text + ";password=" + tb_bdpass.Text + ";MultipleActiveResultSets=True;App=EntityFramework&quot;";
-
-            //var connect = @"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=""data source=" + tb_ip.Text + ", " + tb_port.Text + ";initial catalog=" + tb_bdname.Text + ";user id=" + tb_bdlogin.Text + ";password=" + tb_bdpass.Text + ";MultipleActiveResultSets=True;App=EntityFramework";
-            
             var connect = $"metadata=res://*/DB.Registrant.csdl|res://*/DB.Registrant.ssdl|res://*/DB.Registrant.msl;provider=System.Data.SqlClient;provider connection string=\"data source={tb_ip.Text},{tb_port.Text};initial catalog={tb_bdname.Text};user id={tb_bdlogin.Text};password={tb_bdpass.Text};MultipleActiveResultSets=True;App=EntityFramework\";";
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.ConnectionStrings.ConnectionStrings["RegistrantEntities"].ConnectionString = connect;
@@ -96,6 +114,11 @@ namespace РегистрантКПП
             GridError.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Выполнение входа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_enter_Click(object sender, RoutedEventArgs e)
         {
             if (tb_lastlogin.Text == "кпп")
