@@ -16,7 +16,18 @@ namespace РегистрантКПП.Sklad
         public WindowSklad()
         {
             InitializeComponent();
+            LoadSettings();
+            Refresh();
 
+            thread = new Thread(RefreshThread);
+            thread.Start();
+        }
+
+        /// <summary>
+        /// Загрузка настроек
+        /// </summary>
+        void LoadSettings()
+        {
             if (Registrant.Default.LoadAll == true)
             {
                 ch_loadall.IsChecked = true;
@@ -25,10 +36,6 @@ namespace РегистрантКПП.Sklad
             {
                 ch_loadall.IsChecked = false;
             }
-
-            Refresh();
-            thread = new Thread(RefreshThread);
-            thread.Start();
         }
 
         public void RefreshThread()
